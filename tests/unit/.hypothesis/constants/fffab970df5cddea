@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\minio\replicationconfig.py
+# hypothesis_version: 6.150.0
+
+[1000, 'A', 'Account', 'B', 'Bucket', 'C', 'D', 'Destination', 'E', 'EncryptionConfig', 'F', 'G', 'H', 'I', 'J', 'Metrics', 'Minutes', 'Owner', 'Prefix', 'Priority', 'ReplicaKmsKeyID', 'ReplicationConfig', 'ReplicationTime', 'ReplicationTimeValue', 'Role', 'Rule', 'Status', 'StorageClass']

@@ -1,0 +1,67 @@
+{
+  "analysis_id": "sample_001",
+  "timestamp": "2026-01-11 19:12:58.255097",
+  "target_path": "/sample/project",
+  "component_results": [
+    {
+      "component_name": "python_ai_analyst",
+      "analysis_type": "security_analysis",
+      "status": "success",
+      "result_data": {
+        "confidence_score": 0.85,
+        "security_findings": [
+          {
+            "type": "hardcoded_secret"
+          }
+        ]
+      },
+      "execution_time_seconds": 12.5,
+      "error_message": null
+    },
+    {
+      "component_name": "go_security_analyzer",
+      "analysis_type": "sast_analysis",
+      "status": "success",
+      "result_data": {
+        "findings": [
+          {
+            "rule_id": "secret_detection",
+            "severity": "high"
+          }
+        ]
+      },
+      "execution_time_seconds": 8.3,
+      "error_message": null
+    }
+  ],
+  "cross_component_insights": [
+    {
+      "insight_id": "security_correlation",
+      "insight_type": "security_validation",
+      "description": "Multiple components detected secret management issues",
+      "contributing_components": [
+        "python_ai_analyst",
+        "go_security_analyzer"
+      ],
+      "confidence_score": 0.9,
+      "recommendations": [
+        "Implement secure secret management"
+      ],
+      "supporting_evidence": {
+        "overlapping_findings": 2
+      }
+    }
+  ],
+  "unified_recommendations": [
+    "Implement comprehensive secret management",
+    "Add automated security scanning to CI/CD",
+    "Regular security training for development team"
+  ],
+  "overall_security_score": 0.75,
+  "analysis_summary": "Sample analysis completed successfully",
+  "execution_metadata": {
+    "total_execution_time_seconds": 20.8,
+    "components_analyzed": 2,
+    "successful_analyses": 2
+  }
+}

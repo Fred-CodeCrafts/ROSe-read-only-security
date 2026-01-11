@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\minio\lifecycleconfig.py
+# hypothesis_version: 6.150.0
+
+['A', 'B', 'C', 'D', 'Date', 'Days', 'DaysAfterInitiation', 'E', 'Expiration', 'F', 'False', 'G', 'LifecycleConfig', 'NoncurrentDays', 'Rule', 'StorageClass', 'Transition', 'True']

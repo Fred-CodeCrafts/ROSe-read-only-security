@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\minio\notificationconfig.py
+# hypothesis_version: 6.150.0
+
+['A', 'B', 'C', 'CloudFuncConfig', 'CloudFunction', 'D', 'E', 'Event', 'Filter', 'FilterRule', 'Id', 'Name', 'NotificationConfig', 'Queue', 'QueueConfig', 'QueueConfiguration', 'S3Key', 'Topic', 'TopicConfig', 'TopicConfiguration', 'Value', 'prefix', 'suffix']

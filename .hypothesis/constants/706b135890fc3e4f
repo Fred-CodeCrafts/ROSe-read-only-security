@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\docker\transport\unixconn.py
+# hypothesis_version: 6.150.0
+
+['/', 'http+unix://', 'localhost', 'max_pool_size', 'pools', 'socket_path', 'timeout']

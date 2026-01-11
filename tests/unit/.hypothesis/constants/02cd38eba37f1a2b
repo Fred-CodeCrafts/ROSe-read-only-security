@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\minio\signer.py
+# hypothesis_version: 6.150.0
+
+[b'aws4_request', '&', '&X-Amz-Signature=', '( +)', ',', '/', ';', '=', 'AWS4', 'AWS4-HMAC-SHA256', 'Authorization', 'authorization', 'host', 'host:', 's3', 'sts', 'user-agent']

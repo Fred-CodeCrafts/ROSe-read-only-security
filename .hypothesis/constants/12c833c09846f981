@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\docker\errors.py
+# hypothesis_version: 6.150.0
+
+[400, 404, 500, 600, ', ', 'message', 'no such image']

@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\minio\select.py
+# hypothesis_version: 6.150.0
+
+[1024, 4294967295, ':event-type', ':message-type', 'ALWAYS', 'ASNEEDED', 'BZIP2', 'BytesProcessed', 'BytesReturned', 'BytesScanned', 'CSV', 'Comments', 'CompressionType', 'Cont', 'DOCUMENT', 'Enabled', 'End', 'Expression', 'ExpressionType', 'FieldDelimiter', 'FileHeaderInfo', 'GZIP', 'IGNORE', 'InputSerialization', 'JSON', 'LINES', 'NONE', 'OutputSerialization', 'Parquet', 'Progress', 'QuoteCharacter', 'QuoteEscapeCharacter', 'QuoteFields', 'RecordDelimiter', 'Records', 'RequestProgress', 'SQL', 'ScanRange', 'Start', 'Stats', 'Type', 'USE', 'big', 'bytes_processed', 'bytes_returned', 'bytes_scanned', 'error', 'insufficient data', 'true']

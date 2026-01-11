@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\data_intelligence\__init__.py
+# hypothesis_version: 6.150.0
+
+['AccessLog', 'AccessPatternReport', 'AccessType', 'DataAsset', 'DataClassification', 'LocalDataAccess', 'LocalPolicy', 'LocalTag', 'OSSDataAsset', 'OSSDataIntelligence', 'PolicyType']

@@ -1,0 +1,93 @@
+#!/bin/bash
+
+# Pre-commit hook for cybersecurity platform
+# Prevents commits with secrets, credentials, or unsafe content
+
+set -e
+
+echo "🔍 Running pre-commit security checks..."
+
+# Check if gitleaks is installed
+if ! command -v gitleaks &> /dev/null; then
+    echo "❌ gitleaks is not installed. Installing..."
+    if command -v brew &> /dev/null; then
+        brew install gitleaks
+    elif command -v apt-get &> /dev/null; then
+        curl -sSfL https://github.com/zricethezav/gitleaks/releases/download/v8.18.0/gitleaks_8.18.0_linux_x64.tar.gz | tar -xz -C /tmp
+        sudo mv /tmp/gitleaks /usr/local/bin/
+    elif command -v yum &> /dev/null; then
+        curl -sSfL https://github.com/zricethezav/gitleaks/releases/download/v8.18.0/gitleaks_8.18.0_linux_x64.tar.gz | tar -xz -C /tmp
+        sudo mv /tmp/gitleaks /usr/local/bin/
+    else
+        echo "❌ Please install gitleaks manually: https://github.com/zricethezav/gitleaks"
+        exit 1
+    fi
+fi
+
+# Run gitleaks to detect secrets
+echo "🔐 Scanning for secrets and credentials..."
+if ! gitleaks detect --source . --verbose --redact --no-git; then
+    echo ""
+    echo "🚫 COMMIT BLOCKED: Secrets or credentials detected!"
+    echo ""
+    echo "📋 To fix this issue:"
+    echo "1. Run 'gitleaks detect --source . --verbose' to see details"
+    echo "2. Remove or encrypt the detected secrets"
+    echo "3. Add sensitive files to .gitignore"
+    echo "4. Use environment variables or secure vaults for credentials"
+    echo ""
+    echo "🔧 For false positives, add exceptions to .gitleaks.toml"
+    exit 1
+fi
+
+# Check for common unsafe patterns
+echo "🛡️  Checking for unsafe patterns..."
+
+# Check for hardcoded IPs (allow private ranges)
+if git diff --cached --name-only | xargs grep -l "192\.168\.\|10\.\|172\.\(1[6-9]\|2[0-9]\|3[0-1]\)\." 2>/dev/null | grep -v ".md$" | grep -v "test" | head -1; then
+    echo "⚠️  Warning: Private IP addresses detected. Ensure these are intentional."
+fi
+
+# Check for TODO/FIXME with security implications
+if git diff --cached | grep -i "TODO.*security\|FIXME.*security\|TODO.*auth\|FIXME.*auth" 2>/dev/null; then
+    echo "⚠️  Warning: Security-related TODOs detected. Consider addressing before commit."
+fi
+
+# Check for debug statements that might leak info
+if git diff --cached | grep -E "(console\.log|print\(|println\!|fmt\.Print)" | grep -v "test" 2>/dev/null; then
+    echo "⚠️  Warning: Debug statements detected. Ensure they don't leak sensitive information."
+fi
+
+# Validate synthetic data files
+echo "🎭 Validating synthetic data..."
+for file in $(git diff --cached --name-only | grep -E "\.(json|csv|yaml|yml)$" | grep -v test); do
+    if [ -f "$file" ]; then
+        # Check for common real data patterns
+        if grep -qE "@gmail\.com|@yahoo\.com|@hotmail\.com|real.*email|actual.*data" "$file" 2>/dev/null; then
+            echo "❌ COMMIT BLOCKED: Potential real data detected in $file"
+            echo "   Only synthetic/mock data should be committed."
+            exit 1
+        fi
+    fi
+done
+
+# Check Docker Compose security
+if git diff --cached --name-only | grep -q "docker-compose"; then
+    echo "🐳 Validating Docker Compose security..."
+    for compose_file in $(git diff --cached --name-only | grep docker-compose); do
+        if [ -f "$compose_file" ]; then
+            # Check for default passwords
+            if grep -qE "password.*admin|password.*123|password.*password" "$compose_file" 2>/dev/null; then
+                echo "⚠️  Warning: Default passwords detected in $compose_file. Consider using environment variables."
+            fi
+            
+            # Check for privileged containers
+            if grep -q "privileged.*true" "$compose_file" 2>/dev/null; then
+                echo "⚠️  Warning: Privileged containers detected in $compose_file. Ensure this is necessary."
+            fi
+        fi
+    done
+fi
+
+echo "✅ Pre-commit security checks passed!"
+echo ""

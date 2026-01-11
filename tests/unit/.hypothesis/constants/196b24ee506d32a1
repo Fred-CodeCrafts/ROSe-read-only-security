@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\minio\crypto.py
+# hypothesis_version: 6.150.0
+
+[b'\x00', b'\x00\x00\x00\x00', b'\x80', 1024, 65536, 'insufficient data', 'little']

@@ -1,0 +1,83 @@
+# Gitleaks configuration for cybersecurity platform
+title = "AI Cybersecurity Platform - Secret Detection"
+
+[extend]
+# Use default gitleaks rules as base
+useDefault = true
+
+[[rules]]
+description = "AWS Access Key ID"
+id = "aws-access-key-id"
+regex = '''AKIA[0-9A-Z]{16}'''
+tags = ["key", "AWS"]
+
+[[rules]]
+description = "AWS Secret Access Key"
+id = "aws-secret-access-key"
+regex = '''[A-Za-z0-9+/]{40}'''
+tags = ["key", "AWS"]
+
+[[rules]]
+description = "Generic API Key"
+id = "generic-api-key"
+regex = '''(?i)(api[_-]?key|apikey)['"]*\s*[:=]\s*['"][a-zA-Z0-9]{16,}['"]'''
+tags = ["key", "API"]
+
+[[rules]]
+description = "Generic Password"
+id = "generic-password"
+regex = '''(?i)(password|passwd|pwd)['"]*\s*[:=]\s*['"][^'"\s]{8,}['"]'''
+tags = ["password"]
+
+[[rules]]
+description = "Database Connection String"
+id = "database-connection"
+regex = '''(?i)(mongodb|mysql|postgres|redis)://[^\s'"]+'''
+tags = ["database"]
+
+[[rules]]
+description = "Private Key"
+id = "private-key"
+regex = '''-----BEGIN [A-Z]+ PRIVATE KEY-----'''
+tags = ["key", "private"]
+
+[[rules]]
+description = "JWT Token"
+id = "jwt-token"
+regex = '''eyJ[A-Za-z0-9_-]*\.eyJ[A-Za-z0-9_-]*\.[A-Za-z0-9_-]*'''
+tags = ["token", "JWT"]
+
+# Allowlist for false positives
+[allowlist]
+description = "Allowlisted files and patterns"
+files = [
+    '''\.md$''',  # Documentation files
+    '''test.*\.py$''',  # Test files
+    '''.*_test\.go$''',  # Go test files
+    '''.*\.test\.js$''',  # JavaScript test files
+    '''example.*''',  # Example files
+    '''mock.*''',  # Mock data files
+    '''synthetic.*''',  # Synthetic data files
+]
+
+paths = [
+    '''data/synthetic/''',  # Synthetic data directory
+    '''tests/''',  # Test directory
+    '''examples/''',  # Examples directory
+    '''docs/''',  # Documentation directory
+]
+
+regexes = [
+    '''example.*key''',  # Example keys in documentation
+    '''test.*password''',  # Test passwords
+    '''mock.*token''',  # Mock tokens
+    '''fake.*secret''',  # Fake secrets for testing
+    '''synthetic.*data''',  # Synthetic data patterns
+    '''placeholder.*''',  # Placeholder values
+    '''REPLACE_WITH_ACTUAL''',  # Template placeholders
+    '''YOUR_.*_HERE''',  # Template placeholders
+]
+
+# Entropy detection settings
+[allowlist.regexTarget]
+[allowlist.regexTarget.match]

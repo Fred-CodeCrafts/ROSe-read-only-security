@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\duckdb\sqltypes\__init__.py
+# hypothesis_version: 6.150.0
+
+['BIGINT', 'BIT', 'BLOB', 'BOOLEAN', 'DATE', 'DOUBLE', 'DuckDBPyType', 'FLOAT', 'HUGEINT', 'INTEGER', 'INTERVAL', 'SMALLINT', 'SQLNULL', 'TIME', 'TIMESTAMP', 'TIMESTAMP_MS', 'TIMESTAMP_NS', 'TIMESTAMP_S', 'TIMESTAMP_TZ', 'TIME_TZ', 'TINYINT', 'UBIGINT', 'UHUGEINT', 'UINTEGER', 'USMALLINT', 'UTINYINT', 'UUID', 'VARCHAR']

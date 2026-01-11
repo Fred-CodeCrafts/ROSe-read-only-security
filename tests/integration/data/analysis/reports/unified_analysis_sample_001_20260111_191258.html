@@ -1,0 +1,311 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unified Security Analysis Report - sample_001</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            border-bottom: 3px solid #2c3e50;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            color: #2c3e50;
+            margin: 0;
+            font-size: 2.5em;
+        }
+        .header .subtitle {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin-top: 10px;
+        }
+        .summary-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        .card h3 {
+            margin: 0 0 10px 0;
+            font-size: 1.1em;
+        }
+        .card .value {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .security-score {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        }
+        .security-score.medium {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        .security-score.low {
+            background: linear-gradient(135deg, #fc4a1a 0%, #f7b733 100%);
+        }
+        .section {
+            margin-bottom: 40px;
+        }
+        .section h2 {
+            color: #2c3e50;
+            border-left: 4px solid #3498db;
+            padding-left: 15px;
+            margin-bottom: 20px;
+        }
+        .component-result {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .component-result h3 {
+            color: #495057;
+            margin-top: 0;
+        }
+        .status-success {
+            border-left: 4px solid #28a745;
+        }
+        .status-error {
+            border-left: 4px solid #dc3545;
+        }
+        .status-partial {
+            border-left: 4px solid #ffc107;
+        }
+        .insight {
+            background-color: #e3f2fd;
+            border: 1px solid #bbdefb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        .insight h4 {
+            color: #1976d2;
+            margin-top: 0;
+        }
+        .recommendations {
+            background-color: #f1f8e9;
+            border: 1px solid #c8e6c9;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .recommendations ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+        .recommendations li {
+            margin-bottom: 8px;
+        }
+        .metadata {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 0.9em;
+        }
+        .confidence-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
+            transition: width 0.3s ease;
+        }
+        .execution-time {
+            color: #6c757d;
+            font-size: 0.9em;
+            font-style: italic;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Unified Security Analysis Report</h1>
+            <div class="subtitle">Analysis ID: sample_001</div>
+            <div class="subtitle">Target: /sample/project</div>
+            <div class="subtitle">Generated: 2026-01-11 19:12:58</div>
+        </div>
+        
+        <div class="summary-cards">
+            <div class="card security-score medium">
+                <h3>Overall Security Score</h3>
+                <div class="value">75%</div>
+            </div>
+            <div class="card">
+                <h3>Components Analyzed</h3>
+                <div class="value">2</div>
+            </div>
+            <div class="card">
+                <h3>Cross-Component Insights</h3>
+                <div class="value">1</div>
+            </div>
+            <div class="card">
+                <h3>Total Execution Time</h3>
+                <div class="value">20.8s</div>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Analysis Summary</h2>
+            <div class="metadata">
+                Sample analysis completed successfully
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Component Analysis Results</h2>
+            
+            <div class="component-result status-success">
+                <h3>python_ai_analyst - security_analysis</h3>
+                <p><strong>Status:</strong> Success</p>
+                <p class="execution-time">Execution time: 12.50s</p>
+                
+                
+                <div class="confidence-bar">
+                    <div class="confidence-fill" style="width: 100.0%"></div>
+                </div>
+                
+                <details>
+                    <summary>View Details</summary>
+                    <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto;">
+{
+  "confidence_score": 0.85,
+  "security_findings": [
+    {
+      "type": "hardcoded_secret"
+    }
+  ]
+}
+                    </pre>
+                </details>
+            </div>
+            
+            <div class="component-result status-success">
+                <h3>go_security_analyzer - sast_analysis</h3>
+                <p><strong>Status:</strong> Success</p>
+                <p class="execution-time">Execution time: 8.30s</p>
+                
+                
+                <div class="confidence-bar">
+                    <div class="confidence-fill" style="width: 100.0%"></div>
+                </div>
+                
+                <details>
+                    <summary>View Details</summary>
+                    <pre style="background-color: #f8f9fa; padding: 10px; border-radius: 4px; overflow-x: auto;">
+{
+  "findings": [
+    {
+      "rule_id": "secret_detection",
+      "severity": "high"
+    }
+  ]
+}
+                    </pre>
+                </details>
+            </div>
+            
+        </div>
+        
+        <div class="section">
+            <h2>Cross-Component Insights</h2>
+            
+                <div class="insight">
+                    <h4>Security Validation</h4>
+                    <p>Multiple components detected secret management issues</p>
+                    <p><strong>Contributing Components:</strong> python_ai_analyst, go_security_analyzer</p>
+                    <p><strong>Confidence:</strong> 90.0%</p>
+                    
+                    <div class="confidence-bar">
+                        <div class="confidence-fill" style="width: 90.0%"></div>
+                    </div>
+                    
+                    <strong>Recommendations:</strong>
+                    <ul>
+                        <li>Implement secure secret management</li>
+                    </ul>
+                </div>
+                
+        </div>
+        
+        <div class="section">
+            <h2>Unified Recommendations</h2>
+            <div class="recommendations">
+                <ul>
+                    <li>Implement comprehensive secret management</li><li>Add automated security scanning to CI/CD</li><li>Regular security training for development team</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section">
+            <h2>Execution Metadata</h2>
+            <div class="metadata">
+                {
+  "total_execution_time_seconds": 20.8,
+  "components_analyzed": 2,
+  "successful_analyses": 2
+}
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>Generated by AI-Assisted Cybersecurity Analysis & Governance Platform</p>
+            <p>Report generated at 2026-01-11 19:12:58</p>
+        </div>
+    </div>
+</body>
+</html>
+        

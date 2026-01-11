@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\minio\error.py
+# hypothesis_version: 6.150.0
+
+['A', 'BucketName', 'Code', 'HostId', 'Key', 'Message', 'RequestId', 'Resource', 'S3Error', '__cause__', '__context__', '__traceback__', '_is_frozen', 'bucket_name', 'code', 'host_id', 'message', 'object_name', 'request_id', 'resource', 'response']

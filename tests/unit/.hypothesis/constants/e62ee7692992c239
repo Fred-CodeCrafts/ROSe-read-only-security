@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\minio\commonconfig.py
+# hypothesis_version: 6.150.0
+
+[128, 255, 256, '&', '/', '?versionId=', 'A', 'And', 'AndOperator', 'B', 'C', 'COMPLIANCE', 'COPY', 'ComposeSource', 'CopySource', 'D', 'Disabled', 'E', 'Enabled', 'F', 'Filter', 'GOVERNANCE', 'ID', 'Key', 'Prefix', 'REPLACE', 'Status', 'Tag', 'Tags', 'Value', 'bucket', 'compose size', 'key must be provided', 'length', 'object', 'offset', 'x-amz-copy-source']

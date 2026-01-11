@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\minio\helpers.py
+# hypothesis_version: 6.150.0
+
+[443, 1024, 10000, '%7E', '&', '--ol-s3', '-.', '-accelerate', '-s3alias', '.', '.-', '..', '.cn', '.elb.amazonaws.com', '/', '=', 'Credential=([^/]+)', 'ON', 'PUT', 'Signature=*REDACTED*', 'Sse type is required', 'X-Amz-Meta-', 'aliyuncs.com', 'amazonaws', 'cache-control', 'content-disposition', 'content-encoding', 'content-language', 'content-type', 'domain_suffix', 'dualstack', 'dualstack.', 'ec2-', 'http', 'https', 'invalid port', 'location', 'md5', 'region', 's3-', 's3-accelerate', 's3-accelerate.', 's3-accesspoint', 's3.', 's3_prefix', 'us-ascii', 'us-east-1', 'us-gov-west-1', 'vpce', 'x-amz-', 'x-amz-meta-', 'x-amz-tagging', 'xn--', '~']

@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\docker\utils\fnmatch.py
+# hypothesis_version: 6.150.0
+
+[100, '!', '*', '/', '?', '[', '\\', '\\\\', ']', '^', 'fnmatch', 'fnmatchcase', 'translate']

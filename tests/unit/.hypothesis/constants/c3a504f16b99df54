@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\minio\versioningconfig.py
+# hypothesis_version: 6.150.0
+
+['A', 'ExcludeFolders', 'ExcludedPrefixes', 'MFADelete', 'Off', 'Prefix', 'Status', 'Suspended', 'VersioningConfig', 'true']

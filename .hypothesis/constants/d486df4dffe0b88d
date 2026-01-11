@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\docker\types\healthcheck.py
+# hypothesis_version: 6.150.0
+
+['CMD-SHELL', 'Interval', 'Retries', 'StartPeriod', 'Test', 'Timeout', 'interval', 'retries', 'start_period', 'test', 'timeout']

@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\ai_analyst\models.py
+# hypothesis_version: 6.150.0
+
+[0.0, '1.0.0', 'compliance_violation', 'compliant', 'critical', 'general', 'high', 'info', 'insecure_config', 'low', 'medium', 'non_compliant', 'partial', 'secret_exposure', 'security_analysis', 'suspicious_pattern', 'unknown']

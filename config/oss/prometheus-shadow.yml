@@ -1,0 +1,58 @@
+# Shadow Mode Prometheus Configuration
+# Isolated monitoring configuration for shadow environments
+
+global:
+  scrape_interval: 15s
+  evaluation_interval: 15s
+  external_labels:
+    environment: 'shadow'
+    mode: 'analysis'
+
+rule_files:
+  - "shadow_rules.yml"
+
+scrape_configs:
+  # Shadow Controller Metrics
+  - job_name: 'shadow-controller'
+    static_configs:
+      - targets: ['shadow-controller:8080']
+    metrics_path: '/metrics'
+    scrape_interval: 10s
+
+  # Shadow Environment Services
+  - job_name: 'shadow-services'
+    static_configs:
+      - targets: 
+        - 'shadow-duckdb:5432'
+        - 'shadow-minio:9000'
+    scrape_interval: 30s
+
+  # Docker Container Metrics (if available)
+  - job_name: 'docker-containers'
+    static_configs:
+      - targets: ['localhost:9323']
+    scrape_interval: 30s
+
+  # Node Exporter (if available)
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['localhost:9100']
+    scrape_interval: 30s
+
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: []  # No alerting in shadow mode
+
+# Shadow-specific recording rules
+recording_rules:
+  - name: shadow_analysis_metrics
+    rules:
+      - record: shadow:analysis_duration_seconds
+        expr: histogram_quantile(0.95, rate(shadow_analysis_duration_seconds_bucket[5m]))
+      
+      - record: shadow:risk_score_average
+        expr: avg(shadow_risk_score)
+      
+      - record: shadow:environment_count
+        expr: count(shadow_environment_active)

@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\docker\api\daemon.py
+# hypothesis_version: 6.150.0
+
+[200, '/_ping', '/auth', '/events', '/info', '/system/df', '/version', '1.25', 'OK', 'email', 'filters', 'password', 'serveraddress', 'since', 'until', 'username']

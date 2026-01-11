@@ -1,0 +1,127 @@
+# Shadow Mode Docker Compose Override
+# This file provides isolated shadow environment configuration for risk analysis
+
+version: '3.8'
+
+services:
+  # Shadow Mode Analysis Controller
+  shadow-controller:
+    build:
+      context: .
+      dockerfile: Dockerfile.shadow
+    container_name: cybersec-shadow-controller
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./shadow_environments:/shadow_environments
+      - ./data/analysis:/analysis
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    environment:
+      - SHADOW_MODE=true
+      - ANALYSIS_ONLY=true
+      - DOCKER_HOST=unix:///var/run/docker.sock
+    networks:
+      - shadow-network
+    depends_on:
+      - shadow-prometheus
+      - shadow-grafana
+    restart: unless-stopped
+
+  # Shadow Mode Prometheus (Isolated)
+  shadow-prometheus:
+    image: prom/prometheus:latest
+    container_name: cybersec-shadow-prometheus
+    ports:
+      - "9091:9090"
+    volumes:
+      - ./config/oss/prometheus-shadow.yml:/etc/prometheus/prometheus.yml:ro
+      - shadow_prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=24h'  # Shorter retention for shadow
+      - '--web.enable-lifecycle'
+    networks:
+      - shadow-network
+    restart: unless-stopped
+
+  # Shadow Mode Grafana (Isolated)
+  shadow-grafana:
+    image: grafana/grafana:latest
+    container_name: cybersec-shadow-grafana
+    ports:
+      - "3001:3000"
+    volumes:
+      - shadow_grafana_data:/var/lib/grafana
+      - ./config/oss/grafana-shadow:/etc/grafana/provisioning
+    environment:
+      - GF_SECURITY_ADMIN_USER=shadow-admin
+      - GF_SECURITY_ADMIN_PASSWORD=shadow123
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_SERVER_ROOT_URL=http://localhost:3001
+    networks:
+      - shadow-network
+    restart: unless-stopped
+
+  # Shadow Mode DuckDB (Isolated)
+  shadow-duckdb:
+    image: marcboeker/duckdb:latest
+    container_name: cybersec-shadow-duckdb
+    ports:
+      - "5433:5432"
+    volumes:
+      - shadow_duckdb_data:/data
+      - ./data/analysis:/analysis:ro
+    environment:
+      - DUCKDB_DATABASE=/data/shadow_analysis.db
+    networks:
+      - shadow-network
+    restart: unless-stopped
+
+  # Shadow Mode MinIO (Isolated)
+  shadow-minio:
+    image: minio/minio:latest
+    container_name: cybersec-shadow-minio
+    ports:
+      - "9002:9000"
+      - "9003:9001"
+    volumes:
+      - shadow_minio_data:/data
+    environment:
+      - MINIO_ROOT_USER=shadowadmin
+      - MINIO_ROOT_PASSWORD=shadowadmin123
+      - MINIO_BROWSER_REDIRECT_URL=http://localhost:9003
+    command: server /data --console-address ":9001"
+    networks:
+      - shadow-network
+    restart: unless-stopped
+
+  # Shadow Mode Security Scanner
+  shadow-scanner:
+    image: returntocorp/semgrep:latest
+    container_name: cybersec-shadow-scanner
+    volumes:
+      - ./shadow_environments:/code:ro
+      - ./data/analysis/shadow_scans:/output
+    environment:
+      - SEMGREP_RULES=auto
+      - SEMGREP_OUTPUT_FORMAT=json
+    networks:
+      - shadow-network
+    command: ["--config=auto", "--json", "--output=/output/scan-results.json", "/code"]
+
+volumes:
+  shadow_prometheus_data:
+  shadow_grafana_data:
+  shadow_duckdb_data:
+  shadow_minio_data:
+
+networks:
+  shadow-network:
+    driver: bridge
+    internal: true  # Isolated network for shadow mode
+    driver_opts:
+      com.docker.network.bridge.enable_icc: "false"
+      com.docker.network.bridge.name: "shadow-br0"

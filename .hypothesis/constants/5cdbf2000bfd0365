@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\data_intelligence\models.py
+# hypothesis_version: 6.150.0
+
+['+00:00', 'Z', '__dataclass_fields__', 'access_control', 'admin', 'compliance', 'confidential', 'delete', 'encryption', 'internal', 'public', 'read', 'restricted', 'retention', 'write']

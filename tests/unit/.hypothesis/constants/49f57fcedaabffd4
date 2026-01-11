@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\duckdb\value\constant\__init__.py
+# hypothesis_version: 6.150.0
+
+['BinaryValue', 'BitValue', 'BlobValue', 'BooleanValue', 'DateValue', 'DecimalValue', 'DoubleValue', 'FloatValue', 'HugeIntegerValue', 'IntegerValue', 'IntervalValue', 'LongValue', 'NullValue', 'ShortValue', 'StringValue', 'TimeTimeZoneValue', 'TimeValue', 'TimestampSecondValue', 'TimestampValue', 'UUIDValue', 'UnsignedBinaryValue', 'UnsignedIntegerValue', 'UnsignedLongValue', 'UnsignedShortValue', 'Value']

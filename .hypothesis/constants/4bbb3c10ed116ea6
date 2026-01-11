@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\docker\utils\socket.py
+# hypothesis_version: 6.150.0
+
+[109, 4096, '>BxxxL', 'Unexpected EOF', 'poll', 'recv']

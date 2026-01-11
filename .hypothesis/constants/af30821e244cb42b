@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\ai_analyst\__init__.py
+# hypothesis_version: 6.150.0
+
+[0.7, 300, '1.0.0', 'analysis_db_path', 'confidence_threshold', 'default_model', 'llama2', 'max_analysis_time', 'ollama_endpoint', 'vector_db_path']

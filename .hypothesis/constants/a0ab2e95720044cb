@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\docker\constants.py
+# hypothesis_version: 6.150.0
+
+[1024, 2048, '1.24', '1.44', '10.0.0.0/8', '127.0.0.1', '\\\\?\\', 'b', 'cpusetcpus', 'cpushares', 'g', 'k', 'm', 'memory', 'memswap', 'win32']

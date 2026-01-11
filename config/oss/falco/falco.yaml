@@ -1,0 +1,75 @@
+# Falco configuration for cybersecurity analysis
+rules_file:
+  - /etc/falco/falco_rules.yaml
+  - /etc/falco/falco_rules.local.yaml
+  - /etc/falco/k8s_audit_rules.yaml
+  - /etc/falco/rules.d
+
+# Output channels for security events
+outputs:
+  rate: 1
+  max_burst: 1000
+
+# File output for analysis
+file_output:
+  enabled: true
+  keep_alive: false
+  filename: /var/log/falco_events.txt
+
+# Stdout output for real-time monitoring
+stdout_output:
+  enabled: true
+
+# Syslog output for SIEM integration
+syslog_output:
+  enabled: true
+
+# HTTP output for webhook integration
+http_output:
+  enabled: false
+  url: ""
+
+# gRPC output for programmatic access
+grpc_output:
+  enabled: false
+
+# gRPC server for external clients
+grpc:
+  enabled: false
+  bind_address: "0.0.0.0:5060"
+  threadiness: 0
+
+# Webserver for health checks
+webserver:
+  enabled: true
+  listen_port: 8765
+  k8s_healthz_endpoint: /healthz
+  ssl_enabled: false
+
+# Syscall event drops
+syscall_event_drops:
+  actions:
+    - log
+    - alert
+  rate: 0.03333
+  max_burst: 10
+
+# Priority threshold for alerts
+priority: debug
+
+# Buffered outputs
+buffered_outputs: false
+
+# Syscall event timeouts
+syscall_event_timeouts:
+  max_consecutives: 1000
+
+# Modern BPF probe
+modern_bpf:
+  cpus_for_each_syscall_buffer: 2
+
+# Falco engine configuration
+engine:
+  kind: modern_bpf
+  modern_bpf:
+    cpus_for_each_syscall_buffer: 2

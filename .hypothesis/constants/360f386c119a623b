@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\integration\analysis_dashboard.py
+# hypothesis_version: 6.150.0
+
+[0.0, 0.2, 0.4, 0.6, 0.7, 0.75, 0.8, 0.85, 0.9, 1.0, 8.3, 12.5, 20.8, 100, '%Y-%m-%d %H:%M:%S', '/sample/project', '1.0', '<br>', '__main__', 'components_analyzed', 'confidence_score', 'correlation-high', 'correlation-low', 'correlation-medium', 'correlation-none', 'error', 'findings', 'go_security_analyzer', 'hardcoded_secret', 'high', 'low', 'medium', 'overlapping_findings', 'python_ai_analyst', 'rule_id', 'sample_001', 'sast_analysis', 'secret_detection', 'security_analysis', 'security_correlation', 'security_findings', 'security_validation', 'severity', 'success', 'successful_analyses', 'type', 'utf-8', 'w', '⚠️', '✅', '❌']

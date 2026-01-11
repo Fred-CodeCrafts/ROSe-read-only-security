@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\data_protection\models.py
+# hypothesis_version: 6.150.0
+
+[0.0, 0.8, '[REDACTED]', 'api_key', 'aws_access_key', 'aws_secret_key', 'confidential', 'credit_card', 'email', 'internal', 'ip_address', 'password', 'phone_number', 'public', 'restricted', 'ssn', 'token']

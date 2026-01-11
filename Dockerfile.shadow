@@ -1,0 +1,46 @@
+# Shadow Mode Analysis Controller Dockerfile
+FROM python:3.11-slim
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    docker.io \
+    curl \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Copy requirements and install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Install additional dependencies for shadow mode
+RUN pip install --no-cache-dir \
+    docker \
+    pyyaml \
+    prometheus-client \
+    flask \
+    flask-cors
+
+# Copy source code
+COPY src/ ./src/
+COPY config/ ./config/
+COPY data/ ./data/
+
+# Create shadow mode directories
+RUN mkdir -p /shadow_environments /analysis
+
+# Set environment variables
+ENV PYTHONPATH=/app/src
+ENV SHADOW_MODE=true
+ENV ANALYSIS_ONLY=true
+
+# Expose port for shadow controller API
+EXPOSE 8080
+
+# Create shadow controller entry point
+COPY scripts/shadow-controller.py ./shadow-controller.py
+
+# Run shadow controller
+CMD ["python", "shadow-controller.py"]
