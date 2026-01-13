@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\cost_optimization\models.py
+# hypothesis_version: 6.150.0
+
+[0.0, 1.0, 3.0, 5.0, 10.0, 60.0, 75.0, 85.0, 95.0, 10240.0, 100, 1024, 2000, 3600, 20000, 25000, 1000000, 'accuracy', 'athena', 'bedrock', 'blocked', 'cloudwatch', 'complex', 'description', 'heavy', 'light', 'moderate', 'none', 'priority', 'recommendation_type', 's3', 'service_type', 'simple', 'speed']

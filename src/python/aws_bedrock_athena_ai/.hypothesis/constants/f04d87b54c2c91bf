@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\moto\core\model.py
+# hypothesis_version: 6.150.0
+
+['_operation_model', '_shape_model', 'awsQueryCompatible', 'codeAliases', 'error', 'exception', 'flattened', 'header', 'headers', 'list', 'location', 'map', 'shapes', 'string', 'structure']

@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\cost_optimization\throttling_manager.py
+# hypothesis_version: 6.150.0
+
+[0.0, 'critical', 'high', 'inf', 'last_usage_check', 'low', 'normal', 'queued_requests', 'throttle_levels', 'total_queued']

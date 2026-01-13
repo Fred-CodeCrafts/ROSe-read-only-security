@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\reasoning_engine\models.py
+# hypothesis_version: 6.150.0
+
+['compliance_violation', 'configuration_issue', 'critical', 'data_breach', 'ddos', 'high', 'info', 'insider_threat', 'intrusion', 'low', 'malware', 'medium', 'open', 'phishing', 'suspicious_activity', 'vulnerability']

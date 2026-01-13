@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\insights\instant_insights_generator.py
+# hypothesis_version: 6.150.0
+
+[0.8, 78.5, ' [High Confidence]', 'ISO27001', 'NIST', 'SOC2', 'action_plan', 'analysis_id', 'audiences', 'compliance', 'compliant', 'critical_issues', 'finding', 'framework', 'gap', 'immediate', 'long_term', 'medium', 'mitigation', 'partial_compliance', 'recommendation', 'report', 'requirement', 'risk_score', 'score', 'severity', 'short_term', 'status', 'summary', 'threat', 'timestamp', 'total_threats', 'unified_action_plan', 'visualizations', 'vulnerability']

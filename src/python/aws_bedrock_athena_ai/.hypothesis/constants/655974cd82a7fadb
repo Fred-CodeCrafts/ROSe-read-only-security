@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\moto\core\request.py
+# hypothesis_version: 6.150.0
+
+['Content-Encoding', 'ec2', 'gzip', 'json', 'protocols', 'query', 'rest-json']

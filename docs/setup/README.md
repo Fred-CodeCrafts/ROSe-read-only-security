@@ -1,98 +1,121 @@
-# ROSe (Read-Only Security) Setup Guide
+# ROSe AI Security Analyst Setup Guide
 
 ## Overview
 
-This guide helps you set up **ROSe (Read-Only Security)** - an OSS-first AI cybersecurity analysis platform that provides deep security insights without autonomous remediation.
+This guide helps you set up **ROSe AI Security Analyst** - an AWS-powered cybersecurity analysis platform that combines Amazon Bedrock's AI reasoning with Amazon Athena's data querying capabilities to provide expert-level security insights.
 
-## 🎯 Quick Start (5 Minutes)
+## 🎯 Quick Start (15-30 minutes)
 
 ### Prerequisites
 
-- **Docker & Docker Compose** (for OSS stack)
-- **Python 3.8+** (for AI analysis components)
-- **Go 1.19+** (for security analyzer)
-- **Git** (with hooks support)
+- **AWS Account** with administrative access
+- **Python 3.8+** with pip
+- **AWS CLI** installed and configured
+- **Git** (for repository management)
 
 ### 1. Clone and Setup
 
 ```bash
 # Clone the repository
 git clone <repository-url>
-cd rose
+cd rose-ai-security-analyst
 
 # Setup Git hooks for security
 ./scripts/setup-git-hooks.ps1
-
-# Generate synthetic data
-./scripts/generate-synthetic-data.ps1
 ```
 
-### 2. Start OSS Stack
+### 2. AWS Infrastructure Setup
+
+#### Option A: Automated Setup (Recommended)
+```powershell
+# Windows
+.\scripts\aws-setup.ps1 -BucketPrefix "your-company" -Region "us-east-1"
+
+# Linux/macOS
+./scripts/aws-setup.sh --bucket-prefix "your-company" --region "us-east-1"
+```
+
+#### Option B: Manual Setup
+Follow the detailed guide: [AWS Setup Guide](../AWS_SETUP_GUIDE.md)
+
+### 3. Enable Amazon Bedrock Models
+
+1. Go to [AWS Bedrock Console](https://console.aws.amazon.com/bedrock/)
+2. Click "Model catalog" → Find "Claude 3 Haiku"
+3. Click "Open in Playground" to automatically enable the model
+4. If prompted, provide use case: "Security data analysis and threat detection"
+
+### 4. Deploy Infrastructure
 
 ```bash
-# Start all OSS services
-docker-compose up -d
+# Install Python dependencies
+pip install -r requirements.txt
 
-# Verify services are running
-docker-compose ps
+# Deploy AWS infrastructure
+python src/python/aws_bedrock_athena_ai/infrastructure/deploy_infrastructure.py
+
+# Validate setup
+python scripts/validate-aws-setup.py
 ```
 
-### 3. Access Services
+### 5. Start Analyzing
 
-- **Grafana Dashboard**: http://localhost:3000 (admin/admin123)
-- **Prometheus Metrics**: http://localhost:9090
-- **MinIO Console**: http://localhost:9001 (minioadmin/minioadmin123)
-- **Ollama API**: http://localhost:11434
+```bash
+# Launch the ROSe AI Security Analyst
+python -m src.python.aws_bedrock_athena_ai.cli
+
+# Or run the demo
+python demo_ai_analyst.py
+```
 
 ## 🏗️ Architecture Overview
 
-### OSS-First Design
+### AWS-Native Design
 
-The platform uses **100% open-source tools** by default with optional AWS upgrade paths:
+ROSe AI Security Analyst leverages **AWS managed services** for enterprise-grade security analysis:
 
 ```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   AI Analysis   │    │ Security Intel  │    │ Performance     │
-│   (Python)      │    │ (Go)           │    │ (C++)          │
-│                 │    │                │    │                │
-│ • Ollama        │    │ • Wazuh        │    │ • OpenSSL      │
-│ • LangChain     │    │ • Falco        │    │ • libsodium    │
-│ • ChromaDB      │    │ • Semgrep      │    │ • Local Crypto │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-         │                       │                       │
-         └───────────────────────┼───────────────────────┘
-                                 │
-         ┌─────────────────────────────────────────────────┐
-         │              Data & Analytics                   │
-         │                                                 │
-         │ • DuckDB (Analytics)  • MinIO (Storage)        │
-         │ • Prometheus (Metrics) • Grafana (Dashboards)  │
-         │ • SQLite (State)      • SOPS (Secrets)         │
-         └─────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────────────────────┐
+│               ROSe AI Security Analyst Platform            │
+├─────────────────────────────────────────────────────────────┤
+│  🧠 Amazon Bedrock         │  🔍 Amazon Athena            │
+│  • Claude 3 Models         │  • Serverless SQL Analytics  │
+│  • Expert AI Reasoning     │  • Cost-Optimized Queries    │
+│  • Natural Language        │  • Cross-Source Correlation  │
+├─────────────────────────────────────────────────────────────┤
+│  📊 Amazon S3 Data Lake    │  📈 CloudWatch Monitoring    │
+│  • Security Events & Logs  │  • Real-time Dashboards      │
+│  • System Configurations   │  • Automated Alerting        │
+│  • Compliance Data         │  • Cost & Usage Tracking     │
+├─────────────────────────────────────────────────────────────┤
+│  ⚡ AWS Lambda Functions   │  🔐 IAM Security Controls    │
+│  • Event Processing        │  • Fine-grained Permissions  │
+│  • Automated Monitoring    │  • Audit Trail Logging       │
+│  • Cost Optimization       │  • Encryption at Rest        │
+└─────────────────────────────────────────────────────────────┘
 ```
 
 ### Cost Structure
 
-- **Default**: $0/month (100% OSS)
-- **AWS Upgrade**: Optional, clearly documented costs
-- **No Hidden Fees**: All costs transparent and opt-in
+- **AWS Free Tier Optimized**: $0-10/month for typical usage
+- **Pay-per-use**: Only pay for what you analyze
+- **Cost Controls**: Built-in budget limits and monitoring
+- **Transparent Pricing**: Real-time cost tracking and alerts
 
 ## 📋 Detailed Setup
 
-### Step 1: Environment Preparation
+### Step 1: AWS Account Preparation
 
-#### Install Dependencies
+#### Install AWS CLI
 
 **Windows (PowerShell):**
 ```powershell
-# Install Docker Desktop
-winget install Docker.DockerDesktop
+# Install AWS CLI
+curl "https://awscli.amazonaws.com/AWSCLIV2.msi" -o "AWSCLIV2.msi"
+msiexec /i AWSCLIV2.msi
 
 # Install Python
 winget install Python.Python.3.11
-
-# Install Go
-winget install GoLang.Go
 
 # Install Git
 winget install Git.Git
@@ -100,191 +123,195 @@ winget install Git.Git
 
 **Linux (Ubuntu/Debian):**
 ```bash
-# Install Docker
-curl -fsSL https://get.docker.com -o get-docker.sh
-sh get-docker.sh
+# Install AWS CLI
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+unzip awscliv2.zip
+sudo ./aws/install
 
 # Install Python
 sudo apt update
 sudo apt install python3 python3-pip
 
-# Install Go
-sudo apt install golang-go
-
 # Install Git
 sudo apt install git
+```
+
+**macOS:**
+```bash
+# Install AWS CLI
+curl "https://awscli.amazonaws.com/AWSCLIV2.pkg" -o "AWSCLIV2.pkg"
+sudo installer -pkg AWSCLIV2.pkg -target /
+
+# Install Python (if not already installed)
+brew install python
+
+# Install Git (if not already installed)
+brew install git
+```
+
+#### Configure AWS Credentials
+
+```bash
+# Configure AWS CLI
+aws configure
+
+# Enter your:
+# - AWS Access Key ID
+# - AWS Secret Access Key
+# - Default region (e.g., us-east-1)
+# - Default output format: json
+
+# Verify configuration
+aws sts get-caller-identity
 ```
 
 #### Verify Installation
 
 ```bash
-docker --version          # Should be 20.10+
-docker-compose --version  # Should be 2.0+
-python --version          # Should be 3.8+
-go version                # Should be 1.19+
+aws --version              # Should be 2.0+
+python --version           # Should be 3.8+
 git --version             # Should be 2.30+
 ```
 
-### Step 2: Security Configuration
+### Step 2: AWS Services Setup
 
-#### Setup Git Hooks
+#### Enable Amazon Bedrock Models
 
-```bash
-# Configure Git hooks for secret detection
-./scripts/setup-git-hooks.ps1
+1. **Navigate to Bedrock Console**:
+   - Go to [AWS Bedrock Console](https://console.aws.amazon.com/bedrock/)
+   - Select your preferred region (us-east-1 or us-west-2 recommended)
 
-# Test the setup (should block commits with secrets)
-echo "api_key = 'AKIA1234567890123456'" > test_secret.txt
-git add test_secret.txt
-git commit -m "test"  # Should be blocked
-rm test_secret.txt
-```
+2. **Enable Claude Models**:
+   - Click "Model catalog" in the left sidebar
+   - Find "Claude 3 Haiku" and click on it
+   - Click "Open in Playground" to automatically enable
+   - If prompted, provide use case: "Security data analysis and threat detection"
 
-#### Install Gitleaks (Secret Detection)
+3. **Test Model Access**:
+   ```bash
+   aws bedrock list-foundation-models --region us-east-1
+   ```
 
-**Windows:**
-```powershell
-winget install gitleaks
-```
-
-**Linux:**
-```bash
-# Download and install gitleaks
-curl -sSfL https://github.com/zricethezav/gitleaks/releases/download/v8.18.0/gitleaks_8.18.0_linux_x64.tar.gz | tar -xz
-sudo mv gitleaks /usr/local/bin/
-```
-
-### Step 3: OSS Stack Deployment
-
-#### Start Core Services
-
-```bash
-# Start all OSS services in background
-docker-compose up -d
-
-# Check service health
-docker-compose ps
-docker-compose logs --tail=50
-```
-
-#### Verify Service Health
-
-```bash
-# Test Ollama (AI Analysis)
-curl http://localhost:11434/api/version
-
-# Test Prometheus (Metrics)
-curl http://localhost:9090/-/healthy
-
-# Test MinIO (Storage)
-curl http://localhost:9000/minio/health/live
-
-# Test Grafana (Dashboards)
-curl http://localhost:3000/api/health
-```
-
-### Step 4: Data Preparation
-
-#### Generate Synthetic Data
+#### Deploy AWS Infrastructure
 
 ```bash
 # Install Python dependencies
 pip install -r requirements.txt
 
-# Generate synthetic datasets
-./scripts/generate-synthetic-data.ps1
+# Deploy infrastructure using CloudFormation
+python src/python/aws_bedrock_athena_ai/infrastructure/deploy_infrastructure.py \
+  --project-name "your-security-analyst" \
+  --environment "dev" \
+  --email "your-email@example.com"
 
-# Verify data generation
-ls -la data/synthetic/
+# Verify deployment
+aws cloudformation describe-stacks --stack-name ai-security-analyst-infrastructure-dev
 ```
 
-#### Load Initial Data
+### Step 3: Data Setup
 
-```bash
-# Load synthetic data into DuckDB
-python scripts/load-initial-data.py
+#### Create S3 Directory Structure
 
-# Verify data loading
-docker-compose exec duckdb duckdb /data/security_analysis.db -c "SHOW TABLES;"
+The deployment automatically creates the following structure:
+
+```
+security-data-lake-bucket/
+├── events/
+│   └── year=2024/month=01/day=01/
+├── configs/
+│   ├── system_type=firewall/
+│   ├── system_type=server/
+│   └── system_type=network/
+└── raw_logs/
+    ├── application/
+    ├── system/
+    └── security/
 ```
 
-### Step 5: Component Testing
-
-#### Test AI Analysis Component
+#### Upload Sample Data
 
 ```bash
-cd src/python/ai_analyst
-python -m pytest tests/ -v
+# Generate and upload sample security data
+python scripts/generate-synthetic-data.ps1
+
+# Upload to S3
+aws s3 sync data/synthetic/ s3://your-security-data-lake-bucket/events/year=2024/month=01/day=01/
 ```
 
-#### Test Security Analyzer
+#### Verify Athena Setup
 
 ```bash
-cd src/go/security_analyzer
-go test ./... -v
-```
-
-#### Test Performance Analyzer
-
-```bash
-cd src/cpp/performance_analyzer
-mkdir build && cd build
-cmake .. && make
-./tests/run_tests
+# Test Athena query
+aws athena start-query-execution \
+  --query-string "SELECT COUNT(*) FROM security_events WHERE year='2024'" \
+  --result-configuration OutputLocation=s3://your-athena-results-bucket/ \
+  --work-group ai-security-analyst-workgroup-dev
 ```
 
 ## 🔧 Configuration
+
+### AWS Configuration
+
+The system automatically generates configuration files after deployment:
+
+```json
+{
+  "aws": {
+    "region": "us-east-1",
+    "security_data_bucket": "ai-security-analyst-security-data-lake-dev-123456789",
+    "athena_results_bucket": "ai-security-analyst-athena-results-dev-123456789",
+    "athena_workgroup": "ai-security-analyst-workgroup-dev",
+    "glue_database": "ai_security_analyst_security_catalog",
+    "execution_role_arn": "arn:aws:iam::123456789:role/ai-security-analyst-execution-role-dev"
+  },
+  "bedrock": {
+    "models": {
+      "fast": "anthropic.claude-3-haiku-20240307-v1:0",
+      "balanced": "anthropic.claude-3-5-sonnet-20241022-v2:0",
+      "powerful": "anthropic.claude-3-opus-20240229-v1:0"
+    }
+  },
+  "cost_limits": {
+    "max_query_cost_usd": 0.05,
+    "daily_budget_usd": 1.00,
+    "athena_data_scan_limit_gb": 10.0
+  }
+}
+```
 
 ### Environment Variables
 
 Create `.env` file (never commit this):
 
 ```bash
-# OSS Configuration
-OLLAMA_HOST=http://localhost:11434
-WAZUH_API_URL=http://localhost:55000
-PROMETHEUS_URL=http://localhost:9090
-MINIO_ENDPOINT=localhost:9000
-MINIO_ACCESS_KEY=minioadmin
-MINIO_SECRET_KEY=minioadmin123
+# AWS Configuration
+AWS_REGION=us-east-1
+AWS_PROFILE=default
 
-# Analysis Configuration
-ANALYSIS_DB_PATH=./data/analysis/security_analysis.db
-SYNTHETIC_DATA_PATH=./data/synthetic/
+# Application Configuration
 LOG_LEVEL=INFO
+ENABLE_COST_OPTIMIZATION=true
+ENABLE_PII_REDACTION=true
 
 # Security Configuration
 ENABLE_SECRET_DETECTION=true
-ENABLE_PII_REDACTION=true
 SYNTHETIC_DATA_ONLY=true
 ```
 
-### Service Configuration
+### CloudWatch Monitoring
 
-#### Ollama Models
-
-```bash
-# Pull recommended models for security analysis
-docker-compose exec ollama ollama pull llama2:7b
-docker-compose exec ollama ollama pull codellama:7b
-docker-compose exec ollama ollama pull mistral:7b
+Access your monitoring dashboard at:
+```
+https://console.aws.amazon.com/cloudwatch/home?region={region}#dashboards:name=ai-security-analyst-dashboard-{environment}
 ```
 
-#### Wazuh Rules
+### Alert Configuration
 
-```bash
-# Copy custom security rules
-cp config/oss/wazuh/custom_rules.xml /var/ossec/etc/rules/
-docker-compose restart wazuh-manager
-```
-
-#### Grafana Dashboards
-
-```bash
-# Import cybersecurity dashboards
-cp config/oss/grafana/dashboards/*.json /var/lib/grafana/dashboards/
-docker-compose restart grafana
-```
+The system automatically creates alerts for:
+- High Athena costs (>10GB data scanned per hour)
+- Application errors (>10 errors per 5 minutes)
+- Storage growth (>5GB in S3 data lake)
+- Bedrock usage approaching cost thresholds
 
 ## 🧪 Testing the Setup
 
@@ -292,14 +319,15 @@ docker-compose restart grafana
 
 ```bash
 # Run comprehensive system test
-python scripts/test-system-health.py
+python scripts/validate-aws-setup.py
 
 # Expected output:
-# ✅ All OSS services healthy
-# ✅ AI analysis components ready
-# ✅ Security analyzers operational
-# ✅ Synthetic data loaded
-# ✅ Dashboards accessible
+# ✅ AWS credentials configured
+# ✅ Bedrock models accessible
+# ✅ S3 buckets created and accessible
+# ✅ Athena workgroup configured
+# ✅ CloudWatch monitoring active
+# ✅ ROSe AI Security Analyst ready
 ```
 
 ### Security Test
@@ -310,77 +338,124 @@ echo "password = 'super_secret_123'" > test_file.py
 git add test_file.py
 git commit -m "test"  # Should be blocked by pre-commit hook
 
-# Test synthetic data validation
+# Test AI analysis
 python -c "
-from data.synthetic.generator import CybersecurityDataGenerator
-gen = CybersecurityDataGenerator()
-data = gen.generate_synthetic_users(10)
-print('✅ Synthetic data validation passed' if gen.validate_synthetic_data(data) else '❌ Validation failed')
+from src.python.aws_bedrock_athena_ai.nlp.simple_interface import SimpleNLInterface
+interface = SimpleNLInterface()
+result = interface.ask_question('What is the current security status?')
+print('✅ AI analysis working' if result else '❌ AI analysis failed')
+"
+
+# Test Athena queries
+python -c "
+from src.python.aws_bedrock_athena_ai.data_detective.smart_data_detective import SmartDataDetective
+detective = SmartDataDetective()
+result = detective.discover_data_sources()
+print('✅ Athena integration working' if result else '❌ Athena integration failed')
+"
+```
+
+### Cost Validation
+
+```bash
+# Check current AWS costs
+aws ce get-cost-and-usage \
+  --time-period Start=2024-01-01,End=2024-01-31 \
+  --granularity MONTHLY \
+  --metrics BlendedCost \
+  --group-by Type=DIMENSION,Key=SERVICE
+
+# Verify cost controls are active
+python -c "
+from src.python.aws_bedrock_athena_ai.cost_optimization.cost_optimizer import CostOptimizer
+optimizer = CostOptimizer()
+print('✅ Cost controls active' if optimizer.check_budget_status() else '❌ Cost controls inactive')
 "
 ```
 
 ## 🚀 Next Steps
 
-1. **Explore Dashboards**: Visit http://localhost:3000 to see security analytics
-2. **Run Analysis**: Execute your first security analysis workflow
-3. **Review Documentation**: Check `docs/` for detailed component guides
-4. **Customize Rules**: Modify analysis rules in `config/oss/`
-5. **Scale Up**: Consider AWS upgrade paths for enterprise features
+1. **Explore Monitoring**: Visit your CloudWatch dashboard to see real-time metrics
+2. **Ask Security Questions**: Use the natural language interface to analyze your data
+3. **Review Documentation**: Check the [AWS Setup Guide](../AWS_SETUP_GUIDE.md) for advanced configuration
+4. **Upload Real Data**: Replace synthetic data with your actual security logs and events
+5. **Customize Analysis**: Modify analysis rules and AI prompts for your specific needs
+6. **Set Up Alerts**: Configure SNS notifications for critical security events
 
 ## 🆘 Troubleshooting
 
 ### Common Issues
 
-**Docker Services Won't Start:**
+**AWS Credentials Not Working:**
 ```bash
-# Check Docker daemon
-docker info
+# Check AWS configuration
+aws configure list
+aws sts get-caller-identity
 
-# Check port conflicts
-netstat -tulpn | grep -E ':(3000|9090|11434|55000)'
-
-# Reset Docker state
-docker-compose down -v
-docker system prune -f
-docker-compose up -d
+# Reconfigure if needed
+aws configure
 ```
 
-**Python Dependencies Issues:**
+**Bedrock Access Denied:**
 ```bash
-# Create virtual environment
-python -m venv venv
-source venv/bin/activate  # Linux/Mac
-# or
-venv\Scripts\activate     # Windows
+# Check model access in AWS Console
+aws bedrock list-foundation-models --region us-east-1
 
-# Install dependencies
-pip install --upgrade pip
-pip install -r requirements.txt
+# Enable models manually in Bedrock console if needed
 ```
 
-**Git Hooks Not Working:**
+**CloudFormation Stack Failed:**
 ```bash
-# Verify hooks path
-git config core.hooksPath
+# Check stack events
+aws cloudformation describe-stack-events --stack-name ai-security-analyst-infrastructure-dev
 
-# Re-run setup
-./scripts/setup-git-hooks.ps1
+# Common causes:
+# - Insufficient IAM permissions
+# - Resource name conflicts
+# - Service limits exceeded
+```
 
-# Test manually
-.githooks/pre-commit.ps1
+**Athena Queries Failing:**
+```bash
+# Check workgroup configuration
+aws athena get-work-group --work-group ai-security-analyst-workgroup-dev
+
+# Verify S3 bucket permissions
+aws s3 ls s3://your-security-data-bucket/
+
+# Test simple query
+aws athena start-query-execution \
+  --query-string "SHOW TABLES" \
+  --result-configuration OutputLocation=s3://your-athena-results-bucket/ \
+  --work-group ai-security-analyst-workgroup-dev
+```
+
+**High AWS Costs:**
+```bash
+# Check current usage
+aws ce get-cost-and-usage \
+  --time-period Start=2024-01-01,End=2024-01-31 \
+  --granularity DAILY \
+  --metrics BlendedCost
+
+# Review cost optimization settings
+python src/python/aws_bedrock_athena_ai/cost_optimization/cost_optimizer.py --check-budget
 ```
 
 ### Getting Help
 
-- **Documentation**: Check `docs/` directory
-- **Logs**: `docker-compose logs <service-name>`
-- **Health Checks**: `python scripts/test-system-health.py`
+- **AWS Setup Guide**: [docs/AWS_SETUP_GUIDE.md](../AWS_SETUP_GUIDE.md)
+- **Deployment Guide**: [src/python/aws_bedrock_athena_ai/infrastructure/DEPLOYMENT_GUIDE.md](../../src/python/aws_bedrock_athena_ai/infrastructure/DEPLOYMENT_GUIDE.md)
+- **AWS Documentation**: [Bedrock](https://docs.aws.amazon.com/bedrock/) | [Athena](https://docs.aws.amazon.com/athena/)
 - **Issues**: Create GitHub issue with logs and system info
+- **AWS Support**: Use AWS Support if you have a support plan
 
 ## 🔒 Security Notes
 
-- All data is synthetic and safe for development
+- All data stays within your AWS account
+- IAM roles use least-privilege access principles
+- Encryption enabled at rest and in transit
 - Pre-commit hooks prevent accidental secret commits
-- OSS stack runs locally with no external data transmission
-- AWS upgrade paths are optional and clearly documented
-- Regular security updates recommended for all components
+- Cost controls prevent unexpected charges
+- Audit trails maintained in CloudTrail
+- PII automatically redacted before AI analysis

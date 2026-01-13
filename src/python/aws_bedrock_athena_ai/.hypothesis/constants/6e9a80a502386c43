@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\insights\action_plan_generator.py
+# hypothesis_version: 6.150.0
+
+[0.1, 0.2, 0.7, 2.0, 10.0, 100, 180, 1000, 10000, 4450000, '1 month', '1 week', '1-2 days', '1-3 months', '3-6 months', '6+ months', 'Compliance Team', 'Infrastructure Team', 'No actions required', 'Security Team', 'access', 'access_control', 'application', 'compliance', 'critical', 'days', 'deliverables', 'description', 'estimated_cost', 'high', 'hours', 'incident_response', 'infrastructure', 'low', 'medium', 'monitoring', 'months', 'name', 'network', 'policy', 'quarter', 'success_criteria', 'target_date', 'training', 'vulnerability', 'weeks']

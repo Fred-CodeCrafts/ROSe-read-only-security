@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\data_detective\models.py
+# hypothesis_version: 6.150.0
+
+[0.0, 0.8, 10000.0, 'access_logs', 'application_logs', 'cloudtrail_logs', 'compliance_reports', 'created', 'data', 'date', 'day', 'firewall_logs', 'logged', 'modified', 'month', 'network_traffic', 'parquet', 'primary', 'security_logs', 'source', 'system_configs', 'threat_intelligence', 'time', 'timestamp', 'unknown', 'vpc_flow_logs', 'vulnerability_scans', 'year']

@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\moto\core\config.py
+# hypothesis_version: 6.150.0
+
+['DefaultConfig', 'batch', 'core', 'iam', 'iot', 'lambda', 'mock_credentials', 'passthrough', 'reset_boto3_session', 'service_whitelist', 'services', 'stepfunctions', 'urls', 'use_docker', 'use_valid_cert']

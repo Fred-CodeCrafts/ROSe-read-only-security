@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\cost_optimization\cache_manager.py
+# hypothesis_version: 6.150.0
+
+[0.6, 0.8, 100, 1024, 3600, '*.cache', '...', '.cache', 'access_count', 'age_minutes', 'args', 'cache_dir', 'configuration', 'default_ttl_seconds', 'eviction_count', 'func', 'hit_count', 'hit_rate', 'insight', 'key', 'kwargs', 'max_size_mb', 'miss_count', 'prefix', 'query', 'rb', 'size_kb', 'stats', 'top_entries', 'total_entries', 'total_size_mb', 'wb']

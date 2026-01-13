@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\nlp\models.py
+# hypothesis_version: 6.150.0
+
+[0.0, 'TimeRange', 'access_review', 'analyst', 'anomaly_detection', 'attack_surface', 'compliance_check', 'data_breach', 'domain', 'file_type', 'ip_address', 'last 24 hours', 'last month', 'last week', 'medium', 'past 24 hours', 'past month', 'past week', 'port', 'protocol', 'risk_assessment', 'security_posture', 'severity', 'system', 'threat_hunting', 'threat_type', 'timeframe', 'today', 'unknown', 'user', 'vulnerability_scan']

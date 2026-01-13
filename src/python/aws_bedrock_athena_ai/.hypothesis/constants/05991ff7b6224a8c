@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\responses\matchers.py
+# hypothesis_version: 6.150.0
+
+['Content-Type', 'boundary=', 'utf-8']

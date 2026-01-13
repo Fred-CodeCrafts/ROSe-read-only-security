@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\reasoning_engine\expert_reasoning_engine.py
+# hypothesis_version: 6.150.0
+
+[0.0, 0.5, 1.0, '\nTop Threats:', 'business', 'critical', 'executive', 'general audience', 'high', 'low', 'medium', 'technical', 'us-east-1']

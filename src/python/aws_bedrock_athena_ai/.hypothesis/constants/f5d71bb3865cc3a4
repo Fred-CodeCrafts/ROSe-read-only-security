@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\moto\core\custom_responses_mock.py
+# hypothesis_version: 6.150.0
+
+[400, '?', 'Content-Length', 'Content-Type', 'URL does not match', 'UTF-8', 'ascii', 'http', 'read', 'utf8']

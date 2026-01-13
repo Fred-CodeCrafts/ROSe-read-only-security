@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\xmltodict.py
+# hypothesis_version: 6.150.0
+
+['!', '"', '#comment', '#text', "'", '-', '--', '/', ':', '<', '=', '>', '?', '@', '@xmlns', '__iter__', '__main__', 'attribute', 'element', 'false', 'read', 'true', 'utf-8', 'xmlns', 'xmlns{}', '{}{}{}{}']

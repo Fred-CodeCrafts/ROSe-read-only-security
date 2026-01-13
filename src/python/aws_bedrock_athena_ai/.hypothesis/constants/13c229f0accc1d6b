@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\insights\models.py
+# hypothesis_version: 6.150.0
+
+['compliance', 'compliance_report', 'compliance_status', 'executive', 'executive_summary', 'incident_report', 'operations', 'risk_assessment', 'risk_dashboard', 'security_posture', 'technical', 'technical_details', 'threat_timeline', 'trend_analysis']
