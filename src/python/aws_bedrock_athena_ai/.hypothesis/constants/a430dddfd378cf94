@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\moto\core\models.py
+# hypothesis_version: 6.150.0
+
+['123456789012', 'AWS_ACCESS_KEY_ID', 'Callable[P, T]', 'DELETE', 'FOOBARKEY', 'FOOBARSECRET', 'GET', 'HEAD', 'MOTO_CALL_RESET_API', 'MockAWS', 'OPTIONS', 'P', 'PATCH', 'POST', 'PUT', 'T', '_', '__name__', 'before-send', 'boto3.client', 'boto3.resource', 'children', 'config', 'core', 'endpoint_url', 'false', 'http', 'https', 'meta', 'proxies', 'region/', 'region_name', 'remove_data', 'reset', 'reset_boto3_session', 'setUp', 'setup', 'setup_method', 'user_agent_extra', 'verify']

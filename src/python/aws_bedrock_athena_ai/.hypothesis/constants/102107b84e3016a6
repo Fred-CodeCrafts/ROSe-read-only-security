@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\data_detective\__init__.py
+# hypothesis_version: 6.150.0
+
+['ColumnInfo', 'CorrelatedData', 'CorrelationPattern', 'CostEstimate', 'DataCorrelator', 'DataDiscoveryResult', 'DataSource', 'DataSourceDiscovery', 'DataSourceType', 'QueryGenerator', 'QueryResults', 'SchemaInfo', 'SmartDataDetective']

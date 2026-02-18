@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\config\__init__.py
+# hypothesis_version: 6.150.0
+
+['AWSClientManager', 'AWSConfig', 'create_aws_clients', 'validate_aws_setup']

@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\moto\core\exceptions.py
+# hypothesis_version: 6.150.0
+
+[400, 401, 403, '#', 'AccessDenied', 'AuthFailure', 'Content-Type', 'Invalid token', 'InvalidClientTokenId', 'InvalidToken', 'JsonRESTError', 'RequestId', 'UnknownError', 'UnspecifiedErrorCode', 'X-Amzn-ErrorType', '__type', 'application/json', 'core', 'error', 'error_json', 'message', 'service_whitelist', 'single_error', 'wrapped_single_error']

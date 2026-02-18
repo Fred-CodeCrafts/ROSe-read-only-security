@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\security\access_control.py
+# hypothesis_version: 6.150.0
+
+[100, 200, 300, 500, 1000, 2000, 28800, 'Access granted', 'All conditions met', 'Refresh session', 'access_level', 'active_sessions', 'admin', 'admin_mfa_required', 'allowed_requests', 'analysis_results', 'api_endpoints', 'audit', 'audit_logs', 'audit_required', 'conditions_met', 'configuration', 'data_classification', 'decision_reason', 'delete', 'denied_requests', 'execute', 'high', 'internal', 'least_privilege', 'low', 'medium', 'modify_configuration', 'passed', 'rate_limit', 'read', 'reason', 'reports', 'request_id', 'requests_by_resource', 'required_permissions', 'resource_type', 'restricted', 'security_data', 'session_id', 'success_rate', 'total_requests', 'write']

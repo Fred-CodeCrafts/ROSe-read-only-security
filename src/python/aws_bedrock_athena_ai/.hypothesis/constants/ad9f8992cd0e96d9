@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\config\aws_config.py
+# hypothesis_version: 6.150.0
+
+[0.1, 300, 1000, 1073741824, 'ATHENA_WORKGROUP', 'AWSConfig', 'AWS_REGION', 'Account', 'ENVIRONMENT', 'EXECUTION_ROLE_ARN', 'GLUE_DATABASE_NAME', 'PROJECT_NAME', 'SECURITY_DATA_BUCKET', '__main__', 'ai-security-analyst', 'ap-southeast-2', 'athena', 'bedrock', 'bedrock-runtime', 'cloudwatch', 'dev', 'glue', 'inputModalities', 'modelId', 'modelName', 'modelSummaries', 'outputModalities', 'providerName', 's3', 'security_analytic', 'sts', 'unknown', 'us-east-1']

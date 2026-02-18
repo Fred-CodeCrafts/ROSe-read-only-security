@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\security\middleware.py
+# hypothesis_version: 6.150.0
+
+[0.0, 401, 403, 500, ',', ':', 'Invalid API key', 'access_control', 'access_key_id', 'active_requests', 'admin', 'api_key', 'audit_logging', 'authentication_error', 'authorization_error', 'aws', 'client', 'data_redaction', 'demo', 'executive_summary', 'key_id', 'monitoring', 'name', 'permissions', 'query', 'query_type', 'secret_access_key', 'security_middleware', 'session_id', 'session_token', 'technical_details', 'unknown', 'us-east-1', 'user-agent', 'x-aws-access-key-id', 'x-aws-session-token', 'x-forwarded-for', 'x-real-ip', 'x-session-id']

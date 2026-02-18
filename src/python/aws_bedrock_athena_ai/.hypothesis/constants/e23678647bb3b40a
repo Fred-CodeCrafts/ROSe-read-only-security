@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\security\models.py
+# hypothesis_version: 6.150.0
+
+['admin', 'analysis_request', 'analysis_result', 'athena_database', 'athena_table', 'audit', 'authentication', 'authorization', 'bedrock_model', 'confidential', 'configuration', 'configuration_change', 'data_access', 'error', 'internal', 'public', 'query', 'query_execution', 'read_only', 'restricted', 's3_bucket', 'security_data']

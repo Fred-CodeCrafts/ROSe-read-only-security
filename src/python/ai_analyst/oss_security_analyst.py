@@ -34,7 +34,8 @@ try:
     import chromadb
     from chromadb.config import Settings
     HAS_CHROMADB = True
-except ImportError:
+except (ImportError, Exception) as e:
+    # ChromaDB has compatibility issues with Python 3.14+
     HAS_CHROMADB = False
     chromadb = None
     Settings = None

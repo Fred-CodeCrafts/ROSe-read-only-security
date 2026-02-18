@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\moto\core\errors.py
+# hypothesis_version: 6.150.0
+
+['.', 'ValidationError', 'ValidationException', 'code', 'error', 'exception', 'fault', 'members', 'moto', 'namespace', 'senderFault', 'serviceId', 'structure', 'type']

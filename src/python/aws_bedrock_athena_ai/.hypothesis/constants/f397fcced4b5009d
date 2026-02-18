@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\security\data_redactor.py
+# hypothesis_version: 6.150.0
+
+[0.0, 1000, '[EMAIL_REDACTED]', '[IP_REDACTED]', '[PHONE_REDACTED]', '[SSN_REDACTED]', '\\1', '\\bAKIA[0-9A-Z]{16}\\b', 'active_rules', 'affected_systems', 'api_keys', 'aws_access_keys', 'aws_secret_keys', 'classification', 'credit_cards', 'email_addresses', 'enabled', 'evidence', 'executive_summary', 'ipv4_addresses', 'length', 'mac_addresses', 'original_value_hash', 'password_fields', 'pattern_name', 'phone_numbers', 'position', 'raw_logs', 'recommendations', 'redactions_by_type', 'replacement', 'rule_name', 'sensitive_urls', 'ssn', 'technical_details', 'total_redactions', 'total_rules']

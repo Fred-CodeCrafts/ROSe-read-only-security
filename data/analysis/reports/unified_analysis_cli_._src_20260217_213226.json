@@ -1,0 +1,202 @@
+{
+  "analysis_id": "cli_._src",
+  "timestamp": "2026-02-17 21:32:22.670388",
+  "target_path": "./src",
+  "component_results": [
+    {
+      "component_name": "python_ai_analyst",
+      "analysis_type": "security_analysis",
+      "status": "success",
+      "result_data": {
+        "repo_path": "./src",
+        "analysis_timestamp": "2026-02-17 21:32:26.755133",
+        "repo_structure": {
+          "total_files": 1131,
+          "file_types": {
+            ".py": 128,
+            ".template": 1,
+            ".ini": 1,
+            ".md": 7,
+            ".txt": 2,
+            ".pyc": 101,
+            ".cache": 5,
+            "": 860,
+            ".tag": 2,
+            ".yaml": 1,
+            ".js": 1,
+            ".html": 1,
+            ".css": 1,
+            ".gz": 2,
+            ".go": 8,
+            ".mod": 1,
+            ".sum": 1,
+            ".cpp": 4,
+            ".h": 1,
+            ".bat": 2,
+            ".ps1": 1
+          },
+          "directories": [
+            "cpp",
+            "go",
+            "python",
+            "cpp\\performance_analyzer",
+            "go\\security_analyzer",
+            "python\\agentic_modules",
+            "python\\ai_analyst",
+            "python\\aws_bedrock_athena_ai",
+            "python\\data_intelligence",
+            "python\\data_protection",
+            "python\\integration",
+            "python\\use_case_demo",
+            "python\\agentic_modules\\__pycache__",
+            "python\\ai_analyst\\__pycache__",
+            "python\\aws_bedrock_athena_ai\\.cache",
+            "python\\aws_bedrock_athena_ai\\.hypothesis",
+            "python\\aws_bedrock_athena_ai\\.pytest_cache",
+            "python\\aws_bedrock_athena_ai\\api",
+            "python\\aws_bedrock_athena_ai\\config",
+            "python\\aws_bedrock_athena_ai\\cost_optimization",
+            "python\\aws_bedrock_athena_ai\\data_detective",
+            "python\\aws_bedrock_athena_ai\\infrastructure",
+            "python\\aws_bedrock_athena_ai\\insights",
+            "python\\aws_bedrock_athena_ai\\integration",
+            "python\\aws_bedrock_athena_ai\\nlp",
+            "python\\aws_bedrock_athena_ai\\onboarding",
+            "python\\aws_bedrock_athena_ai\\reasoning_engine",
+            "python\\aws_bedrock_athena_ai\\security",
+            "python\\aws_bedrock_athena_ai\\tests",
+            "python\\aws_bedrock_athena_ai\\web",
+            "python\\aws_bedrock_athena_ai\\__pycache__",
+            "python\\data_intelligence\\__pycache__",
+            "python\\data_protection\\__pycache__",
+            "python\\integration\\__pycache__",
+            "python\\use_case_demo\\__pycache__",
+            "python\\aws_bedrock_athena_ai\\.hypothesis\\constants",
+            "python\\aws_bedrock_athena_ai\\.hypothesis\\examples",
+            "python\\aws_bedrock_athena_ai\\.hypothesis\\tmp",
+            "python\\aws_bedrock_athena_ai\\.hypothesis\\unicode_data",
+            "python\\aws_bedrock_athena_ai\\.pytest_cache\\v",
+            "python\\aws_bedrock_athena_ai\\config\\__pycache__",
+            "python\\aws_bedrock_athena_ai\\cost_optimization\\__pycache__",
+            "python\\aws_bedrock_athena_ai\\data_detective\\__pycache__",
+            "python\\aws_bedrock_athena_ai\\infrastructure\\__pycache__",
+            "python\\aws_bedrock_athena_ai\\insights\\__pycache__",
+            "python\\aws_bedrock_athena_ai\\integration\\__pycache__",
+            "python\\aws_bedrock_athena_ai\\nlp\\__pycache__",
+            "python\\aws_bedrock_athena_ai\\onboarding\\__pycache__",
+            "python\\aws_bedrock_athena_ai\\reasoning_engine\\__pycache__",
+            "python\\aws_bedrock_athena_ai\\security\\__pycache__",
+            "python\\aws_bedrock_athena_ai\\tests\\__pycache__",
+            "python\\aws_bedrock_athena_ai\\web\\static",
+            "python\\aws_bedrock_athena_ai\\.pytest_cache\\v\\cache",
+            "python\\aws_bedrock_athena_ai\\.hypothesis\\examples\\04e6b3400353b141",
+            "python\\aws_bedrock_athena_ai\\.hypothesis\\examples\\115f7f83bb925e8d",
+            "python\\aws_bedrock_athena_ai\\.hypothesis\\examples\\47a9b9c0a21c35e4",
+            "python\\aws_bedrock_athena_ai\\.hypothesis\\examples\\c6c924cc485d13c7",
+            "python\\aws_bedrock_athena_ai\\.hypothesis\\unicode_data\\16.0.0",
+            "go\\security_analyzer\\.pytest_cache",
+            "go\\security_analyzer\\.pytest_cache\\v",
+            "go\\security_analyzer\\.pytest_cache\\v\\cache"
+          ],
+          "security_relevant_files": [
+            "python\\ai_analyst\\oss_security_analyst.py",
+            "python\\aws_bedrock_athena_ai\\demo_security_features.py",
+            "python\\use_case_demo\\security_dashboard.py",
+            "python\\use_case_demo\\security_visualizer.py",
+            "python\\use_case_demo\\__pycache__\\security_dashboard.cpython-314.pyc",
+            "python\\use_case_demo\\__pycache__\\security_visualizer.cpython-314.pyc",
+            "python\\aws_bedrock_athena_ai\\.cache\\test_key.cache",
+            "python\\aws_bedrock_athena_ai\\api\\auth.py",
+            "python\\aws_bedrock_athena_ai\\integration\\ai_security_analyst_pipeline.py",
+            "python\\aws_bedrock_athena_ai\\security\\iam_auth.py",
+            "python\\aws_bedrock_athena_ai\\tests\\test_security_integration.py",
+            "python\\aws_bedrock_athena_ai\\tests\\__pycache__\\test_security_integration.cpython-314-pytest-9.0.2.pyc",
+            "python\\aws_bedrock_athena_ai\\security\\__pycache__\\iam_auth.cpython-314.pyc",
+            "python\\aws_bedrock_athena_ai\\integration\\__pycache__\\ai_security_analyst_pipeline.cpython-314.pyc",
+            "python\\ai_analyst\\__pycache__\\oss_security_analyst.cpython-314.pyc",
+            "go\\security_analyzer\\oss_security_intelligence.go",
+            "go\\security_analyzer\\security_scanning_test.go",
+            "cpp\\performance_analyzer\\oss_security_analyzer.cpp",
+            "cpp\\performance_analyzer\\oss_security_analyzer.h"
+          ],
+          "config_files": [
+            "python\\aws_bedrock_athena_ai\\pytest.ini",
+            "python\\aws_bedrock_athena_ai\\infrastructure\\cloudformation_template.yaml"
+          ]
+        },
+        "git_history_summary": {
+          "is_git_repo": false,
+          "total_commits": 0,
+          "recent_commits": [],
+          "contributors": [],
+          "branches": []
+        },
+        "dependencies": [],
+        "security_findings": [
+          {
+            "type": "analysis_error",
+            "severity": "warning",
+            "description": "LLM analysis unavailable - Ollama service not accessible",
+            "details": "Failed to connect to Ollama. Please check that Ollama is downloaded, running and accessible. https://ollama.com/download",
+            "confidence": 0.0
+          }
+        ],
+        "recommendations": [
+          "Implement secrets management best practices",
+          "Establish security code review processes",
+          "Implement automated security scanning in CI/CD pipeline",
+          "Regular dependency vulnerability assessments"
+        ],
+        "confidence_score": 0.0
+      },
+      "execution_time_seconds": 4.08529,
+      "error_message": null
+    },
+    {
+      "component_name": "go_security_analyzer",
+      "analysis_type": "sast_analysis",
+      "status": "error",
+      "result_data": {
+        "status": "error",
+        "error": "[WinError 2] The system cannot find the file specified",
+        "execution_time": 0
+      },
+      "execution_time_seconds": 0.004563,
+      "error_message": "[WinError 2] The system cannot find the file specified"
+    },
+    {
+      "component_name": "go_security_analyzer",
+      "analysis_type": "secrets_analysis",
+      "status": "error",
+      "result_data": {
+        "status": "error",
+        "error": "[WinError 2] The system cannot find the file specified",
+        "execution_time": 0
+      },
+      "execution_time_seconds": 0.003723,
+      "error_message": "[WinError 2] The system cannot find the file specified"
+    }
+  ],
+  "cross_component_insights": [],
+  "unified_recommendations": [
+    "Implement comprehensive security monitoring across all analysis domains",
+    "Establish regular cross-component analysis workflows",
+    "Maintain alignment between security, performance, and governance requirements",
+    "Implement secrets management best practices",
+    "Establish security code review processes",
+    "Implement automated security scanning in CI/CD pipeline",
+    "Regular dependency vulnerability assessments"
+  ],
+  "overall_security_score": 0.0,
+  "analysis_summary": "Unified Analysis Summary:\n- Components analyzed: 3\n- Successful analyses: 1\n- Failed analyses: 2\n- Cross-component insights: 0\n- Analysis types: secrets_analysis, sast_analysis, security_analysis\n\nSuccessful components: python_ai_analyst\nFailed components: go_security_analyzer, go_security_analyzer",
+  "execution_metadata": {
+    "total_execution_time_seconds": 4.094164,
+    "components_analyzed": 3,
+    "successful_analyses": 1,
+    "analysis_types_requested": [
+      "security",
+      "sast",
+      "secrets"
+    ]
+  }
+}

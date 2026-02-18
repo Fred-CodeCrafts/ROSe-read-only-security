@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Security Analyst - Demo</title>
+    <link rel="stylesheet" href="/static/styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-shield-alt"></i> AI Security Analyst</h1>
+                <p class="subtitle">Ask your security data anything, get expert answers instantly</p>
+            </div>
+            <div class="status-indicator">
+                <span id="connection-status" class="status-dot offline"></span>
+                <span id="status-text">Connecting...</span>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Chat Interface -->
+            <div class="chat-container">
+                <div class="chat-header">
+                    <h2><i class="fas fa-comments"></i> Security Analysis Chat</h2>
+                    <button id="clear-chat" class="btn btn-secondary">
+                        <i class="fas fa-trash"></i> Clear Chat
+                    </button>
+                </div>
+                
+                <div id="chat-messages" class="chat-messages">
+                    <!-- Welcome message -->
+                    <div class="message bot-message">
+                        <div class="message-avatar">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="message-content">
+                            <div class="message-text">
+                                Welcome! I'm your AI Security Analyst. Ask me anything about your security posture, threats, or compliance status.
+                            </div>
+                            <div class="message-time">Just now</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-container">
+                    <div class="input-group">
+                        <input 
+                            type="text" 
+                            id="question-input" 
+                            placeholder="Ask a security question... (e.g., 'Are we being attacked right now?')"
+                            maxlength="1000"
+                        >
+                        <button id="send-button" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </div>
+                    <div class="input-help">
+                        <span class="character-count">0/1000</span>
+                        <span class="help-text">Press Enter to send</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar with Examples and Results -->
+            <aside class="sidebar">
+                <!-- Example Questions -->
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-lightbulb"></i> Example Questions</h3>
+                    <div id="example-questions" class="example-list">
+                        <div class="example-item" data-question="Are we being attacked right now?">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Are we being attacked right now?
+                        </div>
+                        <div class="example-item" data-question="Show me security threats from last week">
+                            <i class="fas fa-calendar-week"></i>
+                            Show me security threats from last week
+                        </div>
+                        <div class="example-item" data-question="What are our biggest security risks?">
+                            <i class="fas fa-chart-line"></i>
+                            What are our biggest security risks?
+                        </div>
+                        <div class="example-item" data-question="Check for compliance violations">
+                            <i class="fas fa-clipboard-check"></i>
+                            Check for compliance violations
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Stats -->
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-chart-bar"></i> Quick Stats</h3>
+                    <div class="stats-grid">
+                        <div class="stat-item">
+                            <div class="stat-value" id="queries-today">0</div>
+                            <div class="stat-label">Queries Today</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="avg-response-time">0ms</div>
+                            <div class="stat-label">Avg Response</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-value" id="threats-detected">0</div>
+                            <div class="stat-label">Threats Detected</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- API Info -->
+                <div class="sidebar-section">
+                    <h3><i class="fas fa-key"></i> API Access</h3>
+                    <div class="api-info">
+                        <div class="api-key-display">
+                            <label>Demo API Key:</label>
+                            <div class="api-key-container">
+                                <input type="text" id="api-key" readonly>
+                                <button id="copy-api-key" class="btn btn-small">
+                                    <i class="fas fa-copy"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="api-links">
+                            <a href="/docs" target="_blank" class="api-link">
+                                <i class="fas fa-book"></i> API Documentation
+                            </a>
+                            <a href="/redoc" target="_blank" class="api-link">
+                                <i class="fas fa-file-alt"></i> ReDoc
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+        </main>
+
+        <!-- Analysis Results Modal -->
+        <div id="results-modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2><i class="fas fa-chart-pie"></i> Analysis Results</h2>
+                    <button class="modal-close">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="results-tabs">
+                        <button class="tab-button active" data-tab="summary">Executive Summary</button>
+                        <button class="tab-button" data-tab="technical">Technical Details</button>
+                        <button class="tab-button" data-tab="recommendations">Recommendations</button>
+                        <button class="tab-button" data-tab="visualizations">Visualizations</button>
+                    </div>
+                    <div class="tab-content">
+                        <div id="summary-tab" class="tab-pane active">
+                            <div id="executive-summary"></div>
+                        </div>
+                        <div id="technical-tab" class="tab-pane">
+                            <div id="technical-details"></div>
+                        </div>
+                        <div id="recommendations-tab" class="tab-pane">
+                            <div id="recommendations-list"></div>
+                        </div>
+                        <div id="visualizations-tab" class="tab-pane">
+                            <div id="visualizations-container"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Loading Overlay -->
+        <div id="loading-overlay" class="loading-overlay">
+            <div class="loading-spinner">
+                <i class="fas fa-shield-alt fa-spin"></i>
+                <p>Analyzing security data...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

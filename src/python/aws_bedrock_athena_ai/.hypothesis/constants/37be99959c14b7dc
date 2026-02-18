@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\security\iam_auth.py
+# hypothesis_version: 6.150.0
+
+[300, 1000, '/', '0.0.0.0', ':', 'Account', 'Arn', 'Code', 'ContextKeyName', 'ContextKeyType', 'ContextKeyValues', 'Error', 'EvalDecision', 'EvaluationResults', 'Invalid principal', 'MatchedStatements', 'MissingContextValues', 'UserId', 'admin', 'allowed', 'assumed-role', 'audit', 'aws:RequestedRegion', 'aws:SourceIp', 'bedrock:InvokeModel', 'decision', 'federated-user', 'federated-user/', 'iam', 'iam:ListRoles', 'iam:ListUsers', 'ipAddress', 'logs:CreateLogGroup', 'logs:CreateLogStream', 'logs:PutLogEvents', 'mfa_authenticated', 's3:GetObject', 's3:ListAllMyBuckets', 's3:ListBucket', 'session_duration', 'source_ip', 'string', 'sts', 'timestamp', 'unknown', 'us-east-1', 'user', 'user/', 'user_agent']

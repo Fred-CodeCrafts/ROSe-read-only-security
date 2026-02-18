@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# ROSe - Read-Only Security Analyst
+# Linux/Mac shell script for easy execution
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+python3 "$SCRIPT_DIR/rose.py" "$@"

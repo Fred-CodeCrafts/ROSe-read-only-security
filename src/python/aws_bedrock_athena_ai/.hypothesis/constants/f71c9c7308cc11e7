@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\cost_optimization\model_selector.py
+# hypothesis_version: 6.150.0
+
+[0.0, 0.25, 0.5, 1.0, 1.25, 1.5, 2.0, 3.0, 15.0, 75.0, 200, 500, 800, 1000, 1500, 3000, 4096, 5000, 10000, 25000, 1000000, 'Claude 3 Haiku', 'Claude 3 Opus', 'Claude 3 Sonnet', 'Model not found', 'accuracy', 'balanced', 'complex', 'cost_per_query', 'error', 'fast', 'free_tier', 'input', 'long', 'medium', 'model_name', 'moderate', 'monthly_cost_usd', 'monthly_input_tokens', 'monthly_queries', 'optimization_tips', 'output', 'premium', 'primary_model', 'short', 'simple', 'speed', 'threat_analysis']

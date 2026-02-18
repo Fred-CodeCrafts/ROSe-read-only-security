@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\moto\core\base_backend.py
+# hypothesis_version: 6.150.0
+
+['.', 'AcceptanceRequired', 'AvailabilityZones', 'BaseEndpointDnsNames', 'BaseModel', 'Interface', 'ManagesVpcEndpoints', 'Owner', 'PrivateDnsName', 'PrivateDnsNames', 'SERVICE_BACKEND', 'ServiceId', 'ServiceName', 'ServiceType', 'Tags', 'amazon', 'amazonaws.com.cn', 'amazonaws\\\\?.com$', 'aws', 'cn', 'global', 'models', 'url_bases', 'url_paths', 'urls', 'verified']

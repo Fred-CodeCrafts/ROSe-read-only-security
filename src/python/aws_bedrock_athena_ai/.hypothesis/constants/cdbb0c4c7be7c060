@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\moto\core\utils.py
+# hypothesis_version: 6.150.0
+
+[1000.0, 1000000.0, 200, 400, 86400, '$', '%Y-%m-%dT%H:%M:%S.%f', '%Y-%m-%dT%H:%M:%SZ', '%a', '%b', '(?<!\\\\)\\*', '(?<!\\\\)\\?', '.', '.*', '.?', '/', '/?', '://', '?', 'Apr', 'Aug', 'Content-Length', 'Dec', 'Error', 'Feb', 'Fri', 'HEAD', 'Jan', 'Jul', 'Jun', 'Key', 'Mar', 'May', 'Message', 'Mon', 'Nov', 'Oct', 'Sat', 'Sep', 'Sun', 'Thu', 'Tue', 'Value', 'Wed', 'Z', '\\(\\?P<(.*?)>(.*?)\\)', '\\1', '_', '__getitem__', 'amazonaws.com', 'amazonaws.com.cn', 'c2s.ic.gov', 'cloud.adc-e.uk', 'content-length', 'csp.hci.ic.gov', 'iso', 'isob', 'isoe', 'isof', 's3.amazonaws.com', 'sc2s.sgov.gov', 'service-2', 'utf-8', '{}']

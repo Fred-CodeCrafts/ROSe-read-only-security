@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\onboarding\models.py
+# hypothesis_version: 6.150.0
+
+[0.0, 100.0, 'basic_questions', 'cloudtrail', 'completed', 'compliance_check', 'csv', 'data_upload', 'demo_scenarios', 'format_detection', 'incident_response', 'initial_analysis', 'json', 'log_text', 'parquet', 'risk_assessment', 'syslog', 'threat_hunting', 'tutorial', 'unknown', 'uploaded', 'vpc_flow', 'welcome']

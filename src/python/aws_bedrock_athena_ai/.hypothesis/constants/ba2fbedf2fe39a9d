@@ -1,0 +1,4 @@
+# file: C:\Users\frede\AppData\Roaming\Python\Python314\site-packages\moto\settings.py
+# hypothesis_version: 6.150.0
+
+[1000, 1024, ',', '/.dockerenv', '/proc/self/cgroup', '/tmp/data', '0', '1', '5000', '5005', '5242880', '60', 'IPAddress', 'MOTO_ECS_NEW_ARN', 'MOTO_LAMBDA_DATA_DIR', 'MOTO_LAMBDA_STUB_ECR', 'MOTO_PORT', 'MOTO_PROXY_PORT', 'NetworkSettings', 'Networks', 'SUCCESS', 'TEST_PROXY_MODE', 'TEST_SERVER_MODE', 'TRUE', 'docker', 'docker.io', 'false', 'iam', 'inf', 'iot', 'mlupin/docker-lambda', 'true', 'use_valid_cert']

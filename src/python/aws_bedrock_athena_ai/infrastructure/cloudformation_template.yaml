@@ -1,0 +1,562 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: 'AI Security Analyst - AWS Infrastructure for Bedrock + Athena Integration'
+
+Parameters:
+  ProjectName:
+    Type: String
+    Default: 'ai-security-analyst'
+    Description: 'Name prefix for all resources'
+  
+  Environment:
+    Type: String
+    Default: 'dev'
+    AllowedValues: ['dev', 'staging', 'prod']
+    Description: 'Environment name'
+
+Resources:
+  # S3 Bucket for Security Data Lake
+  SecurityDataLakeBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub '${ProjectName}-security-data-lake-${Environment}-${AWS::AccountId}'
+      VersioningConfiguration:
+        Status: Enabled
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      LifecycleConfiguration:
+        Rules:
+          - Id: SecurityDataLifecycle
+            Status: Enabled
+            Transitions:
+              - TransitionInDays: 30
+                StorageClass: STANDARD_IA
+              - TransitionInDays: 90
+                StorageClass: GLACIER
+              - TransitionInDays: 365
+                StorageClass: DEEP_ARCHIVE
+      NotificationConfiguration:
+        CloudWatchConfigurations:
+          - Event: s3:ObjectCreated:*
+            CloudWatchConfiguration:
+              LogGroupName: !Ref SecurityDataLogGroup
+
+  # S3 Bucket for Athena Query Results
+  AthenaResultsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub '${ProjectName}-athena-results-${Environment}-${AWS::AccountId}'
+      VersioningConfiguration:
+        Status: Enabled
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      LifecycleConfiguration:
+        Rules:
+          - Id: AthenaResultsCleanup
+            Status: Enabled
+            ExpirationInDays: 7
+
+  # CloudWatch Log Group for Security Data Processing
+  SecurityDataLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/aws/s3/${ProjectName}-security-data-lake'
+      RetentionInDays: 30
+
+  # Glue Database for Security Data Catalog
+  SecurityDataCatalog:
+    Type: AWS::Glue::Database
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseInput:
+        Name: !Sub '${ProjectName}_security_catalog'
+        Description: 'Security data catalog for AI Security Analyst'
+
+  # Glue Table for Security Events
+  SecurityEventsTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref SecurityDataCatalog
+      TableInput:
+        Name: 'security_events'
+        Description: 'Security events and logs'
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: 'parquet'
+          compressionType: 'gzip'
+        PartitionKeys:
+          - Name: 'year'
+            Type: 'string'
+          - Name: 'month'
+            Type: 'string'
+          - Name: 'day'
+            Type: 'string'
+        StorageDescriptor:
+          Columns:
+            - Name: 'timestamp'
+              Type: 'string'
+            - Name: 'event_type'
+              Type: 'string'
+            - Name: 'source_ip'
+              Type: 'string'
+            - Name: 'destination_ip'
+              Type: 'string'
+            - Name: 'user_id'
+              Type: 'string'
+            - Name: 'action'
+              Type: 'string'
+            - Name: 'result'
+              Type: 'string'
+            - Name: 'severity'
+              Type: 'string'
+            - Name: 'raw_log'
+              Type: 'string'
+          Location: !Sub 's3://${SecurityDataLakeBucket}/events/'
+          InputFormat: 'org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat'
+          OutputFormat: 'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat'
+          SerdeInfo:
+            SerializationLibrary: 'org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe'
+
+  # Glue Table for System Configurations
+  SystemConfigsTable:
+    Type: AWS::Glue::Table
+    Properties:
+      CatalogId: !Ref AWS::AccountId
+      DatabaseName: !Ref SecurityDataCatalog
+      TableInput:
+        Name: 'system_configs'
+        Description: 'System configurations and compliance data'
+        TableType: EXTERNAL_TABLE
+        Parameters:
+          classification: 'parquet'
+          compressionType: 'gzip'
+        PartitionKeys:
+          - Name: 'system_type'
+            Type: 'string'
+        StorageDescriptor:
+          Columns:
+            - Name: 'system_id'
+              Type: 'string'
+            - Name: 'config_type'
+              Type: 'string'
+            - Name: 'setting_name'
+              Type: 'string'
+            - Name: 'setting_value'
+              Type: 'string'
+            - Name: 'last_modified'
+              Type: 'timestamp'
+            - Name: 'compliance_status'
+              Type: 'string'
+          Location: !Sub 's3://${SecurityDataLakeBucket}/configs/'
+          InputFormat: 'org.apache.hadoop.hive.ql.io.parquet.MapredParquetInputFormat'
+          OutputFormat: 'org.apache.hadoop.hive.ql.io.parquet.MapredParquetOutputFormat'
+          SerdeInfo:
+            SerializationLibrary: 'org.apache.hadoop.hive.ql.io.parquet.serde.ParquetHiveSerDe'
+
+  # IAM Role for AI Security Analyst Application
+  AISecurityAnalystRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub '${ProjectName}-execution-role-${Environment}'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - lambda.amazonaws.com
+                - ec2.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: BedrockAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - bedrock:InvokeModel
+                  - bedrock:InvokeModelWithResponseStream
+                  - bedrock:ListFoundationModels
+                  - bedrock:GetFoundationModel
+                Resource: '*'
+        - PolicyName: AthenaAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - athena:StartQueryExecution
+                  - athena:GetQueryExecution
+                  - athena:GetQueryResults
+                  - athena:StopQueryExecution
+                  - athena:ListQueryExecutions
+                  - athena:GetWorkGroup
+                  - athena:ListWorkGroups
+                Resource: '*'
+              - Effect: Allow
+                Action:
+                  - glue:GetDatabase
+                  - glue:GetDatabases
+                  - glue:GetTable
+                  - glue:GetTables
+                  - glue:GetPartitions
+                Resource: '*'
+        - PolicyName: S3DataLakeAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - s3:GetObject
+                  - s3:PutObject
+                  - s3:DeleteObject
+                  - s3:ListBucket
+                Resource:
+                  - !Sub '${SecurityDataLakeBucket}/*'
+                  - !Ref SecurityDataLakeBucket
+                  - !Sub '${AthenaResultsBucket}/*'
+                  - !Ref AthenaResultsBucket
+        - PolicyName: CloudWatchAccess
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogGroup
+                  - logs:CreateLogStream
+                  - logs:PutLogEvents
+                  - logs:DescribeLogGroups
+                  - logs:DescribeLogStreams
+                Resource: '*'
+
+  # Athena Workgroup for Cost Control
+  SecurityAnalystWorkgroup:
+    Type: AWS::Athena::WorkGroup
+    Properties:
+      Name: !Sub '${ProjectName}-workgroup-${Environment}'
+      Description: 'Workgroup for AI Security Analyst with cost controls'
+      State: ENABLED
+      WorkGroupConfiguration:
+        ResultConfiguration:
+          OutputLocation: !Sub 's3://${AthenaResultsBucket}/query-results/'
+          EncryptionConfiguration:
+            EncryptionOption: SSE_S3
+        EnforceWorkGroupConfiguration: true
+        PublishCloudWatchMetrics: true
+        BytesScannedCutoffPerQuery: 1073741824  # 1GB limit for Free Tier optimization
+
+  # CloudWatch Log Group for Application Logs
+  ApplicationLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub '/aws/ai-security-analyst/${ProjectName}-${Environment}'
+      RetentionInDays: 14
+
+  # CloudWatch Dashboard for Monitoring
+  SecurityAnalystDashboard:
+    Type: AWS::CloudWatch::Dashboard
+    Properties:
+      DashboardName: !Sub '${ProjectName}-dashboard-${Environment}'
+      DashboardBody: !Sub |
+        {
+          "widgets": [
+            {
+              "type": "metric",
+              "x": 0,
+              "y": 0,
+              "width": 12,
+              "height": 6,
+              "properties": {
+                "metrics": [
+                  [ "AWS/Athena", "DataScannedInBytes", "WorkGroup", "${SecurityAnalystWorkgroup}" ],
+                  [ ".", "QueryExecutionTime", ".", "." ],
+                  [ ".", "ProcessedBytes", ".", "." ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${AWS::Region}",
+                "title": "Athena Query Metrics",
+                "period": 300,
+                "stat": "Sum"
+              }
+            },
+            {
+              "type": "metric",
+              "x": 12,
+              "y": 0,
+              "width": 12,
+              "height": 6,
+              "properties": {
+                "metrics": [
+                  [ "AWS/S3", "BucketSizeBytes", "BucketName", "${SecurityDataLakeBucket}", "StorageType", "StandardStorage" ],
+                  [ ".", "NumberOfObjects", ".", ".", ".", "AllStorageTypes" ]
+                ],
+                "view": "timeSeries",
+                "stacked": false,
+                "region": "${AWS::Region}",
+                "title": "Security Data Lake Storage",
+                "period": 86400,
+                "stat": "Average"
+              }
+            },
+            {
+              "type": "log",
+              "x": 0,
+              "y": 6,
+              "width": 24,
+              "height": 6,
+              "properties": {
+                "query": "SOURCE '${ApplicationLogGroup}'\n| fields @timestamp, @message\n| filter @message like /ERROR/\n| sort @timestamp desc\n| limit 100",
+                "region": "${AWS::Region}",
+                "title": "Recent Application Errors",
+                "view": "table"
+              }
+            }
+          ]
+        }
+
+  # SNS Topic for Alerts
+  SecurityAnalystAlertsTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub '${ProjectName}-alerts-${Environment}'
+      DisplayName: 'AI Security Analyst Alerts'
+
+  # CloudWatch Alarm for High Athena Costs
+  HighAthenaCostAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub '${ProjectName}-high-athena-cost-${Environment}'
+      AlarmDescription: 'Alert when Athena data scanning exceeds Free Tier limits'
+      MetricName: DataScannedInBytes
+      Namespace: AWS/Athena
+      Statistic: Sum
+      Period: 3600  # 1 hour
+      EvaluationPeriods: 1
+      Threshold: 10737418240  # 10GB (Free Tier is 10TB/month, this is daily limit)
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: WorkGroup
+          Value: !Ref SecurityAnalystWorkgroup
+      AlarmActions:
+        - !Ref SecurityAnalystAlertsTopic
+      TreatMissingData: notBreaching
+
+  # CloudWatch Alarm for Application Errors
+  ApplicationErrorAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub '${ProjectName}-application-errors-${Environment}'
+      AlarmDescription: 'Alert when application error rate is high'
+      MetricName: ErrorCount
+      Namespace: !Sub '${ProjectName}/Application'
+      Statistic: Sum
+      Period: 300  # 5 minutes
+      EvaluationPeriods: 2
+      Threshold: 10
+      ComparisonOperator: GreaterThanThreshold
+      AlarmActions:
+        - !Ref SecurityAnalystAlertsTopic
+      TreatMissingData: notBreaching
+
+  # CloudWatch Alarm for S3 Storage Growth
+  StorageGrowthAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub '${ProjectName}-storage-growth-${Environment}'
+      AlarmDescription: 'Alert when S3 storage grows rapidly'
+      MetricName: BucketSizeBytes
+      Namespace: AWS/S3
+      Statistic: Average
+      Period: 86400  # 1 day
+      EvaluationPeriods: 1
+      Threshold: 5368709120  # 5GB
+      ComparisonOperator: GreaterThanThreshold
+      Dimensions:
+        - Name: BucketName
+          Value: !Ref SecurityDataLakeBucket
+        - Name: StorageType
+          Value: StandardStorage
+      AlarmActions:
+        - !Ref SecurityAnalystAlertsTopic
+      TreatMissingData: notBreaching
+
+  # Custom Metric Filter for Application Metrics
+  ErrorMetricFilter:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      LogGroupName: !Ref ApplicationLogGroup
+      FilterPattern: '[timestamp, request_id, level="ERROR", ...]'
+      MetricTransformations:
+        - MetricNamespace: !Sub '${ProjectName}/Application'
+          MetricName: ErrorCount
+          MetricValue: '1'
+          DefaultValue: 0
+
+  # Custom Metric Filter for Query Costs
+  QueryCostMetricFilter:
+    Type: AWS::Logs::MetricFilter
+    Properties:
+      LogGroupName: !Ref ApplicationLogGroup
+      FilterPattern: '[timestamp, request_id, level, component="cost_tracker", cost_usd]'
+      MetricTransformations:
+        - MetricNamespace: !Sub '${ProjectName}/Application'
+          MetricName: QueryCostUSD
+          MetricValue: '$cost_usd'
+          DefaultValue: 0
+
+  # Lambda Function for Custom Monitoring (Optional)
+  MonitoringFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      FunctionName: !Sub '${ProjectName}-monitoring-${Environment}'
+      Runtime: python3.9
+      Handler: index.lambda_handler
+      Role: !GetAtt MonitoringFunctionRole.Arn
+      Timeout: 60
+      Code:
+        ZipFile: |
+          import json
+          import boto3
+          import logging
+          from datetime import datetime, timedelta
+
+          logger = logging.getLogger()
+          logger.setLevel(logging.INFO)
+
+          cloudwatch = boto3.client('cloudwatch')
+
+          def lambda_handler(event, context):
+              """Custom monitoring function for AI Security Analyst."""
+              try:
+                  # Put custom metrics
+                  cloudwatch.put_metric_data(
+                      Namespace='AISecurityAnalyst/Health',
+                      MetricData=[
+                          {
+                              'MetricName': 'HealthCheck',
+                              'Value': 1,
+                              'Unit': 'Count',
+                              'Timestamp': datetime.utcnow()
+                          }
+                      ]
+                  )
+                  
+                  return {
+                      'statusCode': 200,
+                      'body': json.dumps('Monitoring completed successfully')
+                  }
+              except Exception as e:
+                  logger.error(f"Monitoring failed: {str(e)}")
+                  return {
+                      'statusCode': 500,
+                      'body': json.dumps(f'Monitoring failed: {str(e)}')
+                  }
+
+  # IAM Role for Monitoring Function
+  MonitoringFunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub '${ProjectName}-monitoring-role-${Environment}'
+      AssumeRolePolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: lambda.amazonaws.com
+            Action: sts:AssumeRole
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole
+      Policies:
+        - PolicyName: CloudWatchMetrics
+          PolicyDocument:
+            Version: '2012-10-17'
+            Statement:
+              - Effect: Allow
+                Action:
+                  - cloudwatch:PutMetricData
+                  - cloudwatch:GetMetricStatistics
+                  - cloudwatch:ListMetrics
+                Resource: '*'
+
+  # EventBridge Rule for Scheduled Monitoring
+  MonitoringSchedule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: !Sub '${ProjectName}-monitoring-schedule-${Environment}'
+      Description: 'Scheduled monitoring for AI Security Analyst'
+      ScheduleExpression: 'rate(5 minutes)'
+      State: ENABLED
+      Targets:
+        - Arn: !GetAtt MonitoringFunction.Arn
+          Id: MonitoringTarget
+
+  # Permission for EventBridge to invoke Lambda
+  MonitoringFunctionPermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref MonitoringFunction
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt MonitoringSchedule.Arn
+
+Outputs:
+  SecurityDataLakeBucket:
+    Description: 'S3 bucket for security data lake'
+    Value: !Ref SecurityDataLakeBucket
+    Export:
+      Name: !Sub '${ProjectName}-security-data-lake-${Environment}'
+
+  AthenaResultsBucket:
+    Description: 'S3 bucket for Athena query results'
+    Value: !Ref AthenaResultsBucket
+    Export:
+      Name: !Sub '${ProjectName}-athena-results-${Environment}'
+
+  SecurityDataCatalog:
+    Description: 'Glue database for security data catalog'
+    Value: !Ref SecurityDataCatalog
+    Export:
+      Name: !Sub '${ProjectName}-security-catalog-${Environment}'
+
+  AISecurityAnalystRole:
+    Description: 'IAM role for AI Security Analyst application'
+    Value: !Ref AISecurityAnalystRole
+    Export:
+      Name: !Sub '${ProjectName}-execution-role-${Environment}'
+
+  AthenaWorkgroup:
+    Description: 'Athena workgroup for cost-controlled queries'
+    Value: !Ref SecurityAnalystWorkgroup
+    Export:
+      Name: !Sub '${ProjectName}-workgroup-${Environment}'
+
+  ApplicationLogGroup:
+    Description: 'CloudWatch log group for application logs'
+    Value: !Ref ApplicationLogGroup
+    Export:
+      Name: !Sub '${ProjectName}-log-group-${Environment}'
+
+  MonitoringDashboard:
+    Description: 'CloudWatch dashboard for monitoring'
+    Value: !Sub 'https://console.aws.amazon.com/cloudwatch/home?region=${AWS::Region}#dashboards:name=${ProjectName}-dashboard-${Environment}'
+
+  AlertsTopic:
+    Description: 'SNS topic for alerts'
+    Value: !Ref SecurityAnalystAlertsTopic
+    Export:
+      Name: !Sub '${ProjectName}-alerts-topic-${Environment}'
+
+  MonitoringFunction:
+    Description: 'Lambda function for custom monitoring'
+    Value: !Ref MonitoringFunction
+    Export:
+      Name: !Sub '${ProjectName}-monitoring-function-${Environment}'

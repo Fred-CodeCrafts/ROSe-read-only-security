@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\onboarding\quick_start.py
+# hypothesis_version: 6.150.0
+
+[0.5, 0.8, 0.9, 100, 300, 500, 1000, 1024, 'analysis_complete', 'completion_time', 'confidence', 'current_stage', 'description', 'detected_format', 'files_processed', 'files_uploaded', 'immediate_actions', 'key_achievements', 'key_findings', 'next_actions', 'next_steps', 'ready', 'recommendation', 'scenarios_completed', 'security_fields', 'session_id', 'severity', 'stages_completed', 'time_spent_minutes', 'title', 'tutorials_completed', 'user_id', 'utf-8']

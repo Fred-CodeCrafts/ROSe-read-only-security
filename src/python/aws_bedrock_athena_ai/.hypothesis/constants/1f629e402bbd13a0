@@ -1,0 +1,4 @@
+# file: C:\Users\frede\Documents\Competitions\aws 10000 ai idea\ai-cybersecurity-project\src\python\aws_bedrock_athena_ai\data_detective\smart_data_detective.py
+# hypothesis_version: 6.150.0
+
+[0.0, 0.005, 0.01, 1.0, 500, 1000, 10000, '192.168.1.100', 'LOGIN_ATTEMPT', 'MEDIUM', 'SECURITY_EVENT', 'SELECT *', 'SUCCESS', 'action', 'all', 'athena', 'confidence', 'correlation_data', 'correlation_score', 'cost_estimate', 'data_scanned_gb', 'data_sources', 'data_sources_found', 'date', 'description', 'error', 'estimated_cost_usd', 'estimated_data_gb', 'event_type', 'execution_time_ms', 'medium_term', 'partition_filtering', 'pattern_type', 'patterns', 'patterns_found', 'primary_results', 'query', 'related_sources', 'result', 'row_count', 'severity', 'size_gb', 'source_id', 'source_ip', 'source_type', 'time', 'timestamp', 'trends', 'us-east-1', 'user123', 'user_id', 'within_free_tier']
