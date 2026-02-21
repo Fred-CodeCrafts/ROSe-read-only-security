@@ -522,7 +522,7 @@ Based on user feedback and lessons learned, future versions will include:
 **AWS Free Tier Deployment:**
 - Estimated setup time: 15-30 minutes
 - Monthly cost: $0-10 (typically under $5)
-- No credit card required for Free Tier
+- Requires AWS account with Free Tier eligibility
 
 **Community & Support:**
 - GitHub Issues for bug reports
